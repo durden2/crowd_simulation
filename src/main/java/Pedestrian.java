@@ -5,12 +5,31 @@ import java.util.ArrayList;
  */
 
 public class Pedestrian extends Element {
-    private int radius;
-    private int mass;
+    private float radius;
+    private float mass;
     private vector2d velocity;
+    private vector2d currentVelocity;
+    private vector2d desiredDirection;
     private float distanceOfSocialRepulsiveForce = 0.8f;
     public Position desiredPosition;
     private ArrayList<Position> path = new ArrayList<>();
+
+
+    public vector2d getDesiredDirection() {
+        return desiredDirection;
+    }
+
+    public void setDesiredDirection(vector2d desiredDirection) {
+        this.desiredDirection = desiredDirection;
+    }
+
+    public vector2d getCurrentVelocity() {
+        return currentVelocity;
+    }
+
+    public void setCurrentVelocity(vector2d currentVelocity) {
+        this.currentVelocity = currentVelocity;
+    }
 
     public float getDistanceOfSocialRepulsiveForce() {
         return distanceOfSocialRepulsiveForce;
@@ -32,7 +51,7 @@ public class Pedestrian extends Element {
         this.velocity = velocity;
     }
 
-    public int getRadius() {
+    public float getRadius() {
         return radius;
     }
 
@@ -40,7 +59,7 @@ public class Pedestrian extends Element {
         this.radius = radius;
     }
 
-    public int getMass() {
+    public float getMass() {
         return mass;
     }
 
@@ -52,10 +71,13 @@ public class Pedestrian extends Element {
         this.elementTypeVariable = elementType.PEDESTRIAN;
     }
 
-    public Pedestrian(Position position) {
+    public Pedestrian(Position position, vector2d desiredDirection_) {
         this.position = position;
-        this.velocity = new vector2d(1,1);
-        this.radius = 20;
+        this.velocity = new vector2d(1,2);
+        this.radius = 150;
         this.elementTypeVariable = elementType.PEDESTRIAN;
+        this.desiredDirection = desiredDirection_;
+        this.currentVelocity = new vector2d(1,1);
+        this.mass = 80;
     }
 }

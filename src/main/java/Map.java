@@ -17,7 +17,7 @@ public class Map {
         }
     }
     public void generatePedestrians() {
-        int numberOfPedestrians = 5;
+        int numberOfPedestrians = 10;
         int mapWidth = 600;
         int mapHeight = 800;
         pedestrians = new Pedestrian[numberOfPedestrians];
@@ -27,7 +27,9 @@ public class Map {
             int randomY = ThreadLocalRandom.current().nextInt(0, mapHeight + 1);
             points[randomX][randomY].elementTypeVariable = elementType.PEDESTRIAN;
             pedestrians[i] = new Pedestrian();
-            Pedestrian temp = new Pedestrian(new Position(randomX, randomY));
+            pedestrians[i] = new Pedestrian();
+            vector2d desiredDirection = vector2d.createVectorFromPoints(new Position(randomX, randomY), this.targetNode.position);
+            Pedestrian temp = new Pedestrian(new Position(randomX, randomY), desiredDirection);
             pedestrians[i] = temp;
         }
     }
@@ -42,7 +44,7 @@ public class Map {
             for (int j = 0; j < Constants.mapWidth; j++) {
                 if ((j == 110) && (i < 400 || i > 500 )) {
                     points[i][j] = new Element(new Position(i, j), elementType.OBSTACLE);
-                } else if ((i == 300) && (j < 300 || j > 320 )) {
+                } else if ((i == 300) && (j < 10 || j > 320 )) {
                     points[i][j] = new Element(new Position(i, j), elementType.OBSTACLE);
                 } else {
                     points[i][j] = new Element(new Position(i, j), elementType.EMPTY);

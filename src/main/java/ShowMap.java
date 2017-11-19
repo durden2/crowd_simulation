@@ -33,9 +33,13 @@ public class ShowMap {
         float x_ = ((x * 2) / divider) - 1;
         return x_;
     }
-    public void run(Map map) {
+    public void run(Map map) throws InterruptedException {
         init();
-        loop(map);
+        try {
+            loop(map);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         // Free the window callbacks and destroy the window
         glfwFreeCallbacks(window);
@@ -115,7 +119,7 @@ public class ShowMap {
         glfwShowWindow(window);
     }
 
-    private void loop(Map map) {
+    private void loop(Map map) throws InterruptedException {
         // This line is critical for LWJGL's interoperation with GLFW's
         // OpenGL context, or any context that is managed externally.
         // LWJGL detects the context that is current in the current thread,
@@ -153,11 +157,27 @@ public class ShowMap {
                 if (map.pedestrians[g].getPath() != null) {
                     for (int i = 0; i < map.pedestrians[g].getPath().size(); i++) {
                         {
+                            Position pathElement = map.pedestrians[g].getPath().get(i);
+                            if (!pathElement.visited) {
+                                map.pedestrians[g].position = new Position(pathElement.x, pathElement.y);
+                                pathElement.visited = true;
+                                i = map.pedestrians[g].getPath().size();
+                            }
+                        }
+                    }
+                }
+                if (map.pedestrians[g].getPath() != null) {
+                    for (int i = 0; i < map.pedestrians[g].getPath().size(); i++) {
+                        {
                             glColor3f(0.25f, 0.75f, 0.5f);
                             x = normalize(map.pedestrians[g].getPath().get(i).x, false);
                             y = normalize(map.pedestrians[g].getPath().get(i).y, true);
                             glVertex2f(x, y);
                         }
+                        vector2d r = FinalForce.calculateFinalForce(map.pedestrians[g], map);
+                        vector2d element1 = r.divideByNumber(0.100f);
+                        vector2d speed = element1.divideByNumber(map.pedestrians[g].getMass());
+                        map.pedestrians[g].setCurrentVelocity(speed);
                     }
                 }
                 glColor3f(1.0f, 0.0f, 0.0f);
@@ -165,13 +185,15 @@ public class ShowMap {
                 y = normalize(map.pedestrians[g].position.y, true);
                 glVertex2f(x, y);
             }
+
+            Thread.sleep(100);
             x = normalize(map.targetNode.position.x, false);
             y = normalize(map.targetNode.position.y, true);
             glVertex2f(x, y);
             glEnd();
 
             for (int g = 0; g < map.pedestrians.length; g++) {
-                DrawCircle(map.pedestrians[g].position.x, map.pedestrians[g].position.y, 20, 300);
+                DrawCircle(map.pedestrians[g].position.x, map.pedestrians[g].position.y, 10, 300);
             }
             glfwSwapBuffers(window);
             glfwPollEvents();

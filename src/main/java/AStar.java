@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
@@ -25,7 +26,10 @@ public class AStar {
            path.add(currentNode.position);
            currentNode = currentNode.getParentNode();
         }
-        System.out.println("Get");
+        Collections.reverse(path);
+        for (int i = 0; i < path.size(); i++){
+            System.out.print("X: " + path.get(i).x + " Y: " + path.get(i).y + " ");
+        }
         return path;
     }
 

@@ -15,8 +15,8 @@ public class CheckIfIntersect {
                     pedestrianToCheck.position.x != pedestriansOnMap[i].position.x) {
                 double distanceX = pow(pedestrianToCheck.position.x - pedestriansOnMap[i].position.x, 2);
                 double distanceY = pow(pedestrianToCheck.position.y - pedestriansOnMap[i].position.y, 2);
-                float radiusSum = pedestrianToCheck.getRadius() + pedestriansOnMap[i].getRadius();
-                float radiusSubtract = pedestrianToCheck.getRadius() - pedestriansOnMap[i].getRadius();
+                double radiusSum = pedestrianToCheck.getRadius() + pedestriansOnMap[i].getRadius();
+                double radiusSubtract = pedestrianToCheck.getRadius() - pedestriansOnMap[i].getRadius();
                 if ((distanceX + distanceY) <= pow(radiusSum, 2)) {
                     if ((distanceX + distanceY) >= pow(radiusSubtract, 2)) {
                         neighbours.add(pedestriansOnMap[i]);
