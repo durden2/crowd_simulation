@@ -17,7 +17,8 @@ public class PhisicalForce {
         double radiusSum = Apedestrian.getRadius() + Bpedestrian.getRadius();
         double distance = sqrt(pow(Apedestrian.position.x - Bpedestrian.position.x, 2)
                 + pow(Apedestrian.position.y - Bpedestrian.position.y, 2));
-
+        radiusSum /= 100;
+        distance /= 100;
         vector2d unitVector = vector2d.calculateUnitVector(
                 vector2d.createVectorFromPoints(Apedestrian.position, Bpedestrian.position));
 

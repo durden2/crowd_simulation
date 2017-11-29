@@ -15,9 +15,10 @@ public class Element {
     public Position position;
     public elementType elementTypeVariable;
     private Element parentNode;
-    private int gcost;
-    private int hcost;
-    public int getFcost() { return gcost + hcost; }
+    private double gcost;
+    private double hcost;
+    public int heapIndex;
+    public double getFcost() { return gcost + hcost; }
 
     public Element getParentNode() {
         return parentNode;
@@ -27,19 +28,19 @@ public class Element {
         this.parentNode = parentNode;
     }
 
-    public int getGcost() {
+    public double getGcost() {
         return gcost;
     }
 
-    public void setGcost(int gcost) {
+    public void setGcost(double gcost) {
         this.gcost = gcost;
     }
 
-    public int getHcost() {
+    public double getHcost() {
         return hcost;
     }
 
-    public void setHcost(int hcost) {
+    public void setHcost(double hcost) {
         this.hcost = hcost;
     }
 
@@ -49,9 +50,26 @@ public class Element {
     };
     public Element() {
         elementTypeVariable = elementType.EMPTY;
-        gcost = 0;
-        hcost = 0;
+        gcost = 0d;
+        hcost = 0d;
         position = new Position();
+    }
+
+    public int CompareTo(Element nodeToCompare) {
+        int currentStatus = 0;
+        if (this.getFcost() < nodeToCompare.getFcost()) {
+            currentStatus = 1;
+        }
+        if (this.getFcost() > nodeToCompare.getFcost()) {
+            currentStatus = -1;
+        }
+        if (this.getHcost() < nodeToCompare.getHcost()){
+            currentStatus = 1;
+        }
+        if (this.getHcost() > nodeToCompare.getHcost()){
+            currentStatus = -1;
+        }
+        return -currentStatus;
     }
 };
 

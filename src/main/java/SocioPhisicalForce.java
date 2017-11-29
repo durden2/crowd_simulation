@@ -15,13 +15,18 @@ public class SocioPhisicalForce {
         double distance = sqrt(pow(Apedestrian.position.x - Bpedestrian.position.x, 2)
                 + pow(Apedestrian.position.y - Bpedestrian.position.y, 2));
 
-        vector2d unitVector = vector2d.calculateUnitVector(
-                vector2d.createVectorFromPoints(Apedestrian.position, Bpedestrian.position));
 
+        double nx = (Apedestrian.position.x - Bpedestrian.position.x) / distance;
+        double ny = (Apedestrian.position.y - Bpedestrian.position.y) / distance;
+
+        radiusSum /= 100;
+        distance /= 100;
+        nx /= 100;
+        ny /= 100;
         double exponent = exp((radiusSum - distance) / Apedestrian.getDistanceOfSocialRepulsiveForce());
         double two = Constants.strengthOfSocialForce * exponent;
 
-        vector2d srf = unitVector.multipleByNumber(two);
+        vector2d srf = new vector2d(nx * two, ny * two);
         return srf;
     }
 }

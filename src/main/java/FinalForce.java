@@ -12,8 +12,14 @@ public class FinalForce {
         for (int i = 0; i < neightbours.size(); i++) {
             force = force.dodaj(SocioPhisicalForce.calculateSocioPhisicalForce(Apedestrian, neightbours.get(i)));
             force = force.dodaj(PhisicalForce.calculatePhisicalForce(Apedestrian, neightbours.get(i)));
-            force = force.dodaj(CalculateDesiredForce.calculateDesiderForce(Apedestrian));
+            force = force.dodaj(CalculateDesiredForce.calculateDesidedForce(Apedestrian, map.targetNode.position));
         }
-        return new vector2d(force.getX(), force.getY());
+
+        ArrayList<Element> obstacles = CheckIfIntersect.checkIfIntersectWithObstacles(Apedestrian, map.obstacles);
+
+        for (int i = 0; i < obstacles.size(); i++) {
+            force = force.dodaj(WallsForce.calculateWallsForce(Apedestrian, obstacles.get(i)));
+        }
+        return new vector2d(-force.getX(), -force.getY());
     }
 }

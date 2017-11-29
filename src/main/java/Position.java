@@ -1,3 +1,5 @@
+import javafx.geometry.Pos;
+
 /**
  * Created by Gandi on 09/11/2017.
  */
@@ -15,4 +17,13 @@ public class Position {
         x = 0;
         y = 0;
     }
+
+    public boolean equals(Position obj) {
+        if (this.x == obj.x && this.y == obj.y) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override public int hashCode() { return this.x + this.y; }
 }

@@ -7,6 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Map {
     public Element[][] points;
     public Pedestrian[] pedestrians;
+    public ArrayList<Element> obstacles;
     public Element targetNode;
 
     public void caltulatePaths() {
@@ -17,14 +18,12 @@ public class Map {
         }
     }
     public void generatePedestrians() {
-        int numberOfPedestrians = 10;
-        int mapWidth = 600;
-        int mapHeight = 800;
+        int numberOfPedestrians = Constants.numberOfPedestrians;
         pedestrians = new Pedestrian[numberOfPedestrians];
 
         for (int i = 0; i < numberOfPedestrians; i++) {
-            int randomX = ThreadLocalRandom.current().nextInt(0, mapWidth + 1);
-            int randomY = ThreadLocalRandom.current().nextInt(0, mapHeight + 1);
+            int randomX = 50;
+            int randomY = 10 + (i * 20);
             points[randomX][randomY].elementTypeVariable = elementType.PEDESTRIAN;
             pedestrians[i] = new Pedestrian();
             pedestrians[i] = new Pedestrian();
@@ -39,14 +38,18 @@ public class Map {
     }
 
     public Map() {
-        points = new Element[Constants.mapHeight][Constants.mapWidth];
-        for (int i = 0; i < Constants.mapHeight; i++) {
-            for (int j = 0; j < Constants.mapWidth; j++) {
-                if ((j == 110) && (i < 400 || i > 500 )) {
+        points = new Element[Constants.mapWidth][Constants.mapHeight];
+        obstacles = new ArrayList<>();
+        for (int i = 0; i < Constants.mapWidth; i++) {
+            for (int j = 0; j < Constants.mapHeight; j++) {
+                if ((i == 350) && (j < 250 || j > 260 )) {
                     points[i][j] = new Element(new Position(i, j), elementType.OBSTACLE);
-                } else if ((i == 300) && (j < 10 || j > 320 )) {
+                    obstacles.add(points[i][j]);
+                } else if ((i == 300) && (j > 200 && j < 300 )) {
                     points[i][j] = new Element(new Position(i, j), elementType.OBSTACLE);
-                } else {
+                    obstacles.add(points[i][j]);
+                }
+                else {
                     points[i][j] = new Element(new Position(i, j), elementType.EMPTY);
                 }
             }
@@ -64,7 +67,7 @@ public class Map {
                 int nodeX = node.position.x + x;
                 int nodeY = node.position.y + y;
 
-                if (nodeX >= 0 && nodeX < Constants.mapHeight && nodeY >= 0 && nodeY < Constants.mapWidth) {
+                if (nodeX >= 0 && nodeX < Constants.mapWidth && nodeY >= 0 && nodeY < Constants.mapHeight) {
                     neighbours.add(points[nodeX][nodeY]);
                 }
             }

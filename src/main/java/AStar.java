@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.Collections;
+import java.awt.*;
+import java.util.*;
 
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
@@ -9,61 +9,55 @@ import static java.lang.Math.sqrt;
  */
 public class AStar {
 
-    public int getDistance(Position startNode, Position endNode) {
-        float neighbourX = startNode.x;
-        float neighbourY = startNode.y;
-        float currentElementX = endNode.x;
-        float currentElementY = endNode.y;
+    public double getDistance(Position startNode, Position endNode) {
+        int neighbourX = startNode.x;
+        int neighbourY = startNode.y;
+        int currentElementX = endNode.x;
+        int currentElementY = endNode.y;
 
-        double distance = sqrt((pow(neighbourX - currentElementX, 2) + pow((neighbourY - currentElementY), 2)));
-        return (int)distance;
+        int diffA = neighbourX - currentElementX;
+        int diff2 = neighbourY - currentElementY;
+        double el = sqrt((diffA * diffA) + (diff2 * diff2));
+        return el;
+
+        /*
+        int dstX = Math.abs(neighbourX - currentElementX);
+        int dstY = Math.abs(neighbourY - currentElementY);
+
+        if (dstX > dstY)
+            return 14*dstY + 10* (dstX-dstY);
+        return 14*dstX + 10 * (dstY-dstX);*/
     }
 
-    public ArrayList<Position> getPath(Element node, Map map) {
-        ArrayList<Position> path = new ArrayList<Position>();
+    public ArrayList<Position> getPath(Element node) {
+        ArrayList<Position> path = new ArrayList<>();
         Element currentNode = node;
         while (currentNode.getParentNode() != null) {
            path.add(currentNode.position);
            currentNode = currentNode.getParentNode();
         }
         Collections.reverse(path);
-        for (int i = 0; i < path.size(); i++){
-            System.out.print("X: " + path.get(i).x + " Y: " + path.get(i).y + " ");
-        }
         return path;
-    }
-
-    public Element findObjectWithLowestFCost(ArrayList<Element> open) {
-        Element node = open.get(0);
-        for (int i = 1; i < open.size(); i++) {
-            if (open.get(i).getFcost() < node.getFcost() || open.get(i).getFcost() == node.getFcost()) {
-                if (open.get(i).getHcost() < node.getHcost()) {
-                    node = open.get(i);
-                }
-            }
-        }
-
-        return node;
     }
 
 
     public ArrayList<Position> calculatePath(Element startNode, Element endNode, Map map) {
-        ArrayList<Element> open = new ArrayList<Element>();
-        ArrayList<Element> close = new ArrayList<Element>();
+        Heap open = new Heap();
+        Heap close = new Heap();
 
-        ArrayList<Position> path = new ArrayList<Position>();
+        ArrayList<Position> path = new ArrayList<>();
 
-        open.add(startNode);
+        open.Add(startNode);
 
-        while (open.size() > 0) {
-            Element currentElement = findObjectWithLowestFCost(open);
-            open.remove(currentElement);
-            close.add(currentElement);
+        while (open.Count() > 0) {
+            Element currentElement = open.RemoveFirst();
+            close.Add(currentElement);
 
             // path has been found
-            if ((endNode.position.x == currentElement.position.x) && (endNode.position.y == currentElement.position.y)) {
+            if ((endNode.position.equals(currentElement.position))) {
                 System.out.println("Path found");
-                return getPath(currentElement, map);
+                return getPath(currentElement);
+                //return path;
             }
 
             ArrayList<Element> neighbours = map.getNeighbours(currentElement);
@@ -71,9 +65,9 @@ public class AStar {
             // traverse all the neighbours of current node
             for (int i = 0; i < neighbours.size(); i++) {
 
-                // if neighbour is not travesable or is in closed list skip to the next one
+                // if neighbour is not traversable or is in closed list skip to the next one
 
-                if ((neighbours.get(i).elementTypeVariable == elementType.OBSTACLE) || close.contains(neighbours.get(i))) {
+                if ((neighbours.get(i).elementTypeVariable == elementType.OBSTACLE) || close.Contains(neighbours.get(i))) {
                     continue;
                 }
 
@@ -81,15 +75,18 @@ public class AStar {
 
                 double newCostToNeighbour = currentElement.getGcost() + getDistance(currentElement.position, currentNeighbour.position);
 
-                if ((newCostToNeighbour < currentNeighbour.getGcost()) || !open.contains(neighbours.get(i))) {
+                boolean isInOpenSet = open.Contains(currentNeighbour);
+                if ((newCostToNeighbour < currentNeighbour.getGcost()) || !isInOpenSet) {
 
                     currentNeighbour.setHcost(getDistance(currentNeighbour.position, endNode.position));
-                    currentNeighbour.setGcost((int)newCostToNeighbour);
+                    currentNeighbour.setGcost(newCostToNeighbour);
                     currentNeighbour.setParentNode(currentElement);
 
                     // is its not in an open list add to open list
-                    if (!open.contains(currentNeighbour)) {
-                        open.add(currentNeighbour);
+                    if (!isInOpenSet) {
+                        open.Add(currentNeighbour);
+                        open.UpdateItem(currentNeighbour);
+                        //path.add(currentNeighbour.position);
                     }
                 }
             }
