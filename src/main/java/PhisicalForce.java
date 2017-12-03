@@ -15,10 +15,12 @@ public class PhisicalForce {
 
     static vector2d calculatePhisicalForce(Pedestrian Apedestrian, Pedestrian Bpedestrian) {
         double radiusSum = Apedestrian.getRadius() + Bpedestrian.getRadius();
-        double distance = sqrt(pow(Apedestrian.position.x - Bpedestrian.position.x, 2)
-                + pow(Apedestrian.position.y - Bpedestrian.position.y, 2));
+        double distance = Distance.calculateDistance(Apedestrian.position, Bpedestrian.position);
+
+        // pixel = cm, need meters to calculate
         radiusSum /= 100;
         distance /= 100;
+
         vector2d unitVector = vector2d.calculateUnitVector(
                 vector2d.createVectorFromPoints(Apedestrian.position, Bpedestrian.position));
 
@@ -31,7 +33,9 @@ public class PhisicalForce {
         vector2d tangentialDirection = new vector2d(-1f * unitVector.getY(), unitVector.getX());
         vector2d velocityDifference = Apedestrian.getVelocity().subtact(Bpedestrian.getVelocity());
 
-        vector2d velocityDifferenceAlongTangential = vector2d.multiplyVectors(velocityDifference, tangentialDirection);
+        vector2d tangentialVelocityDifference = new vector2d(velocityDifference.getX() * tangentialDirection.getX(), velocityDifference.getY() * tangentialDirection.getY());
+
+        vector2d velocityDifferenceAlongTangential = vector2d.multiplyVectors(tangentialVelocityDifference, tangentialDirection);
 
         vector2d secondElementFinal = velocityDifferenceAlongTangential.multipleByNumber(secondElement);
 

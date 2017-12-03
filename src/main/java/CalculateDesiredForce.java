@@ -5,7 +5,7 @@ public class CalculateDesiredForce {
      static vector2d calculateDesidedForce(Pedestrian pedestrian, Position targetNode) {
         // ( mass * (desiredSpeed * directionTowardsDestination) - currentSpeed ) / adaptationTime
 
-         double adaptationTime = 100f;
+        double adaptationTime = 0.5f;
 
         double mass = pedestrian.getMass();
         Position currentPosition = pedestrian.position;

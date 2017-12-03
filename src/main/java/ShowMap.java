@@ -26,9 +26,10 @@ import static org.lwjgl.system.MemoryStack.stackPush;
 public class ShowMap {
 
     private long window;
+    private long timeStamp = 125; //milisec
 
     public vector2d celculateNewVelocity(vector2d force, float mass) {
-        vector2d velocity = force.multipleByNumber(0.125);
+        vector2d velocity = force.multipleByNumber(timeStamp / 1000);
         return new vector2d(velocity.getX() / mass, velocity.getY() / mass);
     };
 
@@ -148,7 +149,6 @@ public class ShowMap {
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
-        int t = 0;
         while ( !glfwWindowShouldClose(window) ) {
             long startTime = System.nanoTime() / 1000000;
 
@@ -187,14 +187,21 @@ public class ShowMap {
                         Position newPosititon = new Position(pathElement.x + (int)r.getX(), pathElement.y + (int)r.getY());
                         Position currentPosition = map.pedestrians[g].position;
                         if (!checkIfObstacleOnTheWay(currentPosition, newPosititon, map.obstacles)) {
-                            map.pedestrians[g].velocitySum = map.pedestrians[g].getVelocity().dodaj((celculateNewVelocity(r, map.pedestrians[g].getMass())));
-                            map.pedestrians[g].setVelocity(celculateNewVelocity(r, map.pedestrians[g].getMass()));
-                            if (map.pedestrians[g].velocitySum.getX() >= 1) {
-                                map.pedestrians[g].velocitySum = new vector2d(map.pedestrians[g].velocitySum.getX() - 1, map.pedestrians[g].velocitySum.getY() - 1);
+                            vector2d newVelocity = celculateNewVelocity(r, map.pedestrians[g].getMass());
+                            map.pedestrians[g].setVelocity(newVelocity.dodaj(map.pedestrians[g].getVelocity()));
+                            map.pedestrians[g].velocitySum = map.pedestrians[g].velocitySum.dodaj(map.pedestrians[g].getVelocity());
+                            if (Math.round(map.pedestrians[g].velocitySum.getX()) >= 1) {
+                                int calkowita = (int) Math.round(map.pedestrians[g].velocitySum.getX());
+                                map.pedestrians[g].velocitySum = new vector2d(map.pedestrians[g].velocitySum.getX() - calkowita, map.pedestrians[g].velocitySum.getY() - calkowita);
+                                map.pedestrians[g].velocitySum = map.pedestrians[g].getVelocity().dodaj(map.pedestrians[g].velocitySum);
                                 map.pedestrians[g].position = newPosititon;
-                                map.pedestrians[g].indexVisited = i + 1;
+                                map.pedestrians[g].indexVisited = i + calkowita;
                                 found = true;
                             }
+                        } else {
+                            pathElement = path.get(i--);
+                            newPosititon = new Position(pathElement.x + (int)r.getX(), pathElement.y + (int)r.getY());
+                            map.pedestrians[g].position = newPosititon;
                         }
                         if (map.pedestrians[g].indexVisited >= path.size()) {
                             map.pedestrians[g].finished = true;
@@ -211,7 +218,7 @@ public class ShowMap {
                 y = normalize((float) (map.pedestrians[g].position.y + r.getX()), true);
                 glVertex2f(x, y);*/
                 if (!map.pedestrians[g].finished) {
-                    DrawCircle(map.pedestrians[g].position.x, map.pedestrians[g].position.y, 8, 100);
+                    DrawCircle(map.pedestrians[g].position.x, map.pedestrians[g].position.y, 6, 100);
                 }
 
                 x = normalize(map.pedestrians[g].position.x, false);
@@ -226,8 +233,7 @@ public class ShowMap {
             glEnd();
 
             long currentTime = System.nanoTime() / 1000000;
-            Thread.sleep(125 - (currentTime - startTime));
-            t++;
+            Thread.sleep(timeStamp - (currentTime - startTime));
 
             glfwSwapBuffers(window);
             glfwPollEvents();
