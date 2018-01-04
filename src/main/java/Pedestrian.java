@@ -13,7 +13,7 @@ public class Pedestrian extends Element {
     public int indexVisited;
     public boolean finished;
     private vector2d desiredDirection;
-    public vector2d distanceLeft;
+    public double distanceLeft;
     private ArrayList<Position> path = new ArrayList<>();
     public boolean stopped;
 
@@ -70,13 +70,13 @@ public class Pedestrian extends Element {
         this.velocity = new vector2d(randomX, randomY);
         this.desiredVelocity = this.velocity;
         // centimeters
-        this.radius = 8f;
+        this.radius = 0.8f;
         this.elementTypeVariable = elementType.PEDESTRIAN;
         this.desiredDirection = desiredDirection_;
         this.mass = 80;
         this.indexVisited = 0;
         this.finished = false;
-        this.distanceLeft = new vector2d(0,0);
+        this.distanceLeft = 0d;
         this.stopped = false;
     }
 }

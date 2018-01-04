@@ -19,5 +19,5 @@ public class Constants {
 
     static public double verticalCost = 1.4d;
 
-    static public double mapScale = 100d;
+    static public double mapScale = 10d;
 }

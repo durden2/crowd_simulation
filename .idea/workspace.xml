@@ -2,39 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85314094-e8ae-410a-a373-7f2edfd765eb" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/Collisions.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/Grids.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/SocialForce.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/AStar.class" afterPath="$PROJECT_DIR$/target/classes/AStar.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/CalculateDesiredForce.class" afterPath="$PROJECT_DIR$/target/classes/CalculateDesiredForce.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/CheckIfIntersect.class" afterPath="$PROJECT_DIR$/target/classes/CheckIfIntersect.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Constants.class" afterPath="$PROJECT_DIR$/target/classes/Constants.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Element.class" afterPath="$PROJECT_DIR$/target/classes/Element.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/FinalForce.class" afterPath="$PROJECT_DIR$/target/classes/FinalForce.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ConnectSocialForce.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Main.class" afterPath="$PROJECT_DIR$/target/classes/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Map.class" afterPath="$PROJECT_DIR$/target/classes/Map.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Pedestrian.class" afterPath="$PROJECT_DIR$/target/classes/Pedestrian.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/PhisicalForce.class" afterPath="$PROJECT_DIR$/target/classes/PhisicalForce.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Position.class" afterPath="$PROJECT_DIR$/target/classes/Position.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ShowMap.class" afterPath="$PROJECT_DIR$/target/classes/ShowMap.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/SocioPhisicalForce.class" afterPath="$PROJECT_DIR$/target/classes/SocioPhisicalForce.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/vector2d.class" afterPath="$PROJECT_DIR$/target/classes/vector2d.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/AStar.java" afterPath="$PROJECT_DIR$/src/main/java/AStar.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/CalculateDesiredForce.java" afterPath="$PROJECT_DIR$/src/main/java/CalculateDesiredForce.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/CheckIfIntersect.java" afterPath="$PROJECT_DIR$/src/main/java/CheckIfIntersect.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Constants.java" afterPath="$PROJECT_DIR$/src/main/java/Constants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Distance.java" afterPath="$PROJECT_DIR$/src/main/java/Distance.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/FinalForce.java" afterPath="$PROJECT_DIR$/src/main/java/FinalForce.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Heap.java" afterPath="$PROJECT_DIR$/src/main/java/Heap.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Main.java" afterPath="$PROJECT_DIR$/src/main/java/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Map.java" afterPath="$PROJECT_DIR$/src/main/java/Map.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Pedestrian.java" afterPath="$PROJECT_DIR$/src/main/java/Pedestrian.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/PhisicalForce.java" afterPath="$PROJECT_DIR$/src/main/java/PhisicalForce.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ShowMap.java" afterPath="$PROJECT_DIR$/src/main/java/ShowMap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/SocioPhisicalForce.java" afterPath="$PROJECT_DIR$/src/main/java/SocioPhisicalForce.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/WallsForce.java" afterPath="$PROJECT_DIR$/src/main/java/WallsForce.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/vector2d.java" afterPath="$PROJECT_DIR$/src/main/java/vector2d.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -46,7 +22,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/simulation_java$Main.coverage" NAME="Main Coverage Results" MODIFIED="1512736211074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/simulation_java$Main.coverage" NAME="Main Coverage Results" MODIFIED="1515089312048" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/kk$Main.coverage" NAME="Main Coverage Results" MODIFIED="1510681011977" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
@@ -62,17 +38,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShowMap.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ShowMap.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ShowMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="62" column="20" lean-forward="false" selection-start-line="62" selection-start-column="20" selection-end-line="62" selection-end-column="20" />
+            <state relative-caret-position="79">
+              <caret line="48" column="64" lean-forward="false" selection-start-line="48" selection-start-column="64" selection-end-line="48" selection-end-column="64" />
               <folding>
-                <element signature="method#normalize#0;class#ShowMap#0" expanded="false" />
-                <element signature="method#run#0;class#ShowMap#0" expanded="false" />
                 <element signature="method#DrawCircle#0;class#ShowMap#0" expanded="false" />
-                <element signature="method#init#0;class#ShowMap#0" expanded="false" />
+                <marker date="1515090621447" expanded="false" signature="3262:3468" ph="{...}" />
+                <marker date="1515090621447" expanded="false" signature="3526:3926" ph="{...}" />
+                <marker date="1515090621447" expanded="false" signature="4456:6714" ph="{...}" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Constants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="441">
+              <caret line="21" column="37" lean-forward="false" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConnectSocialForce.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ConnectSocialForce.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="63">
+              <caret line="3" column="33" lean-forward="true" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -87,29 +83,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AStar.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/AStar.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1155">
-              <caret line="55" column="123" lean-forward="false" selection-start-line="55" selection-start-column="118" selection-end-line="55" selection-end-column="123" />
-              <folding>
-                <marker date="1515061750256" expanded="true" signature="2218:2564" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Distance.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Distance.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
-              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="147">
@@ -129,35 +103,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Collisions.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Collisions.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="631">
-              <caret line="58" column="47" lean-forward="true" selection-start-line="58" selection-start-column="47" selection-end-line="58" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Pedestrian.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Pedestrian.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="55" column="17" lean-forward="true" selection-start-line="55" selection-start-column="17" selection-end-line="55" selection-end-column="17" />
+            <state relative-caret-position="403">
+              <caret line="72" column="25" lean-forward="false" selection-start-line="72" selection-start-column="25" selection-end-line="72" selection-end-column="25" />
               <folding>
-                <element signature="e#620#621#0" expanded="true" />
-                <element signature="e#674#675#0" expanded="true" />
+                <element signature="e#618#619#0" expanded="true" />
+                <element signature="e#672#673#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Constants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Constants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="5" column="34" lean-forward="false" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -241,16 +195,16 @@
         <option value="$PROJECT_DIR$/src/main/java/CalculateDesiredForce.java" />
         <option value="$PROJECT_DIR$/src/main/java/WallsForce.java" />
         <option value="$PROJECT_DIR$/src/main/java/SocioPhisicalForce.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Constants.java" />
         <option value="$PROJECT_DIR$/src/main/java/AStar.java" />
         <option value="$PROJECT_DIR$/src/main/java/PhisicalForce.java" />
         <option value="$PROJECT_DIR$/src/main/java/Grids.java" />
         <option value="$PROJECT_DIR$/src/main/java/Collisions.java" />
         <option value="$PROJECT_DIR$/src/main/java/Map.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Pedestrian.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/FinalForce.java" />
         <option value="$PROJECT_DIR$/src/main/java/ShowMap.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Pedestrian.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Constants.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Main.java" />
       </list>
     </option>
   </component>
@@ -686,6 +640,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30625686" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32930845" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -703,7 +658,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -711,7 +665,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="212" />
+      <option name="time" value="219" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -729,19 +683,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/ShowMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3255">
-          <caret line="173" column="90" lean-forward="false" selection-start-line="173" selection-start-column="90" selection-end-line="173" selection-end-column="90" />
-          <folding>
-            <element signature="method#normalize#0;class#ShowMap#0" expanded="false" />
-            <element signature="method#run#0;class#ShowMap#0" expanded="false" />
-            <element signature="method#DrawCircle#0;class#ShowMap#0" expanded="false" />
-            <element signature="method#init#0;class#ShowMap#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/vector2d.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
@@ -772,8 +713,8 @@
         <state relative-caret-position="1239">
           <caret line="59" column="5" lean-forward="true" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
           <folding>
-            <element signature="e#948#949#0" expanded="false" />
-            <element signature="e#988#989#0" expanded="false" />
+            <element signature="e#946#947#0" expanded="false" />
+            <element signature="e#986#987#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -822,10 +763,10 @@
         <state relative-caret-position="2583">
           <caret line="138" column="32" lean-forward="false" selection-start-line="138" selection-start-column="32" selection-end-line="138" selection-end-column="32" />
           <folding>
-            <element signature="method#normalize#0;class#ShowMap#0" expanded="false" />
-            <element signature="method#run#0;class#ShowMap#0" expanded="false" />
             <element signature="method#DrawCircle#0;class#ShowMap#0" expanded="false" />
-            <element signature="method#init#0;class#ShowMap#0" expanded="false" />
+            <marker date="1515090621447" expanded="false" signature="3262:3468" ph="{...}" />
+            <marker date="1515090621447" expanded="false" signature="3526:3926" ph="{...}" />
+            <marker date="1515090621447" expanded="false" signature="4456:6714" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1004,14 +945,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/CalculateDesiredForce.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="16" column="33" lean-forward="false" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/WallsForce.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="631">
@@ -1024,14 +957,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-115">
           <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="34" lean-forward="false" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
           <folding />
         </state>
       </provider>
@@ -1086,29 +1011,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Pedestrian.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="55" column="17" lean-forward="true" selection-start-line="55" selection-start-column="17" selection-end-line="55" selection-end-column="17" />
-          <folding>
-            <element signature="e#620#621#0" expanded="true" />
-            <element signature="e#674#675#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Collisions.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="631">
           <caret line="58" column="47" lean-forward="true" selection-start-line="58" selection-start-column="47" selection-end-line="58" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="8" column="37" lean-forward="false" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
           <folding />
         </state>
       </provider>
@@ -1121,16 +1027,59 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/CalculateDesiredForce.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="16" column="25" lean-forward="false" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ConnectSocialForce.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="3" column="33" lean-forward="true" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Pedestrian.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="72" column="25" lean-forward="false" selection-start-line="72" selection-start-column="25" selection-end-line="72" selection-end-column="25" />
+          <folding>
+            <element signature="e#618#619#0" expanded="true" />
+            <element signature="e#672#673#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="21" column="37" lean-forward="false" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ShowMap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="62" column="20" lean-forward="false" selection-start-line="62" selection-start-column="20" selection-end-line="62" selection-end-column="20" />
+        <state relative-caret-position="79">
+          <caret line="48" column="64" lean-forward="false" selection-start-line="48" selection-start-column="64" selection-end-line="48" selection-end-column="64" />
           <folding>
-            <element signature="method#normalize#0;class#ShowMap#0" expanded="false" />
-            <element signature="method#run#0;class#ShowMap#0" expanded="false" />
             <element signature="method#DrawCircle#0;class#ShowMap#0" expanded="false" />
-            <element signature="method#init#0;class#ShowMap#0" expanded="false" />
+            <marker date="1515090621447" expanded="false" signature="3262:3468" ph="{...}" />
+            <marker date="1515090621447" expanded="false" signature="3526:3926" ph="{...}" />
+            <marker date="1515090621447" expanded="false" signature="4456:6714" ph="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="8" column="37" lean-forward="false" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>

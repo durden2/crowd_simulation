@@ -29,7 +29,7 @@ import static org.lwjgl.system.MemoryStack.stackPush;
 public class ShowMap {
 
     private long window;
-    private long timeStamp = 50; //milisec
+    private long timeStamp = 60; //milisec
     private long simulationStartTime = 0;
     private boolean simulationFinished = false;
 
@@ -46,28 +46,19 @@ public class ShowMap {
     }
 
     public void calculatePathElementsWent(ArrayList<Position> path, Pedestrian currentAgent, vector2d distance) {
-        vector2d dist = distance.dodaj(currentAgent.distanceLeft);
-        currentAgent.distanceLeft = new vector2d(dist.getX() - (int) dist.getX(), dist.getY() - (int) dist.getY());
-        dist = new vector2d((int) dist.getX(), (int) dist.getY());
+        double dist = vector2d.calculateVectorMagnitude(distance) + currentAgent.distanceLeft;
+        dist *= Constants.mapScale;
         for (int t = currentAgent.indexVisited; t < path.size() - 1; t ++) {
-            if (vector2d.calculateVectorMagnitude(dist) == 0) {
+            if (dist < 1) {
                 currentAgent.indexVisited = t;
+                currentAgent.distanceLeft = dist / Constants.mapScale;
                 break;
             }
-            int up = 0;
-            int side = 0;
-            if (dist.getY() != 0) {
-                up = 1;
-            }
-            if (dist.getX() != 0) {
-                side = 1;
-            }
-            dist = new vector2d(dist.getX() - side, dist.getY() - up);
-            currentAgent.indexVisited = t;
+            dist--;
         }
     }
 
-    public vector2d calculateDistance (vector2d force, Pedestrian currentAgent, Map map) {
+    public vector2d calculateDistance (vector2d force, Pedestrian currentAgent) {
         vector2d newAcc = celculateAcc(force, currentAgent.getMass());
         float t = timeStamp / 1000f;
         vector2d startDistance = currentAgent.getVelocity().multipleByNumber(t);
@@ -216,22 +207,23 @@ public class ShowMap {
 
                 glColor3f(1.0f, 0.0f, 0.0f);
                 ArrayList<Position> path = currentAgent.getPath();
-                boolean found = false;
                 double distanceX = 0d;
                 double distanceY = 0d;
-
+                Position currentPathPosition = path.get(currentAgent.indexVisited);
+                int indexVisited = currentAgent.indexVisited;
                 if (!currentAgent.stopped) {
-                    vector2d r = FinalForce.calculateFinalForce(currentAgent, map);
-                    vector2d distance = calculateDistance(r, currentAgent, map);
+                    vector2d force = FinalForce.calculateFinalForce(currentAgent, map);
+                    vector2d distance = calculateDistance(force, currentAgent);
                     calculatePathElementsWent(path, currentAgent, distance);
-                    distanceX = distance.getX() - 1;
-                    distanceY = distance.getY() - 1;
+                    distanceX = distance.getX();
+                    distanceY = distance.getY();
+                    distanceX *= Constants.mapScale;
+                    distanceY *= Constants.mapScale;
                 }
 
                 for (int i = 0; i < path.size(); i++) {
-                    Position pathElement = path.get(i);
-                    if (!map.pedestrians[g].finished && !found && map.pedestrians[g].indexVisited == i) {
-                        Position newPosition = new Position(pathElement.x + (int) distanceX, pathElement.y + (int) distanceY);
+                    if (!map.pedestrians[g].finished && indexVisited == i) {
+                        Position newPosition = new Position(currentPathPosition.x + (int) distanceX, currentPathPosition.y + (int) distanceY);
                         Collisions.avoid(map, currentAgent, newPosition);
                         if (!currentAgent.stopped || !checkIfObstacleOnTheWay(currentAgent.position, newPosition, map.obstacles)) {
                             currentAgent.position = newPosition;
@@ -240,10 +232,10 @@ public class ShowMap {
                             //currentAgent.setPath(path2);
                         }
                         pos.add(newPosition);
-                        found = true;
                         if (currentAgent.indexVisited >= path.size()) {
                             currentAgent.finished = true;
                         }
+                        break;
                     }
                 }
 
