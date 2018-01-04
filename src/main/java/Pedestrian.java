@@ -9,20 +9,20 @@ public class Pedestrian extends Element {
     private float radius;
     private float mass;
     private vector2d velocity;
+    private vector2d desiredVelocity;
     public int indexVisited;
     public boolean finished;
     private vector2d desiredDirection;
-    public vector2d velocitySum;
-    public Position desiredPosition;
+    public vector2d distanceLeft;
     private ArrayList<Position> path = new ArrayList<>();
+    public boolean stopped;
 
-
-    public vector2d getDesiredDirection() {
-        return desiredDirection;
+    public vector2d getDesiredVelocity() {
+        return desiredVelocity;
     }
 
-    public void setDesiredDirection(vector2d desiredDirection) {
-        this.desiredDirection = desiredDirection;
+    public void setDesiredVelocity(vector2d desiredVelocity) {
+        this.desiredVelocity = desiredVelocity;
     }
 
     public ArrayList<Position> getPath() {
@@ -65,16 +65,18 @@ public class Pedestrian extends Element {
         this.position = position;
 
         Random rand = new Random();
-        float randomX = rand.nextFloat() * (1.5f - 0.6f) + 0.6f;
-        float randomY = rand.nextFloat() * (1.5f - 0.6f) + 0.6f;
-        this.velocity = new vector2d(randomX,randomY);
+        float randomX = rand.nextFloat() * (Constants.maxPedestrianVelocity - Constants.minPedestrianVelocity) + Constants.minPedestrianVelocity;
+        float randomY = rand.nextFloat() * (Constants.maxPedestrianVelocity - Constants.minPedestrianVelocity) + Constants.minPedestrianVelocity;
+        this.velocity = new vector2d(randomX, randomY);
+        this.desiredVelocity = this.velocity;
         // centimeters
-        this.radius = 25f;
+        this.radius = 8f;
         this.elementTypeVariable = elementType.PEDESTRIAN;
         this.desiredDirection = desiredDirection_;
         this.mass = 80;
         this.indexVisited = 0;
         this.finished = false;
-        this.velocitySum = new vector2d(randomX,randomY);
+        this.distanceLeft = new vector2d(0,0);
+        this.stopped = false;
     }
 }

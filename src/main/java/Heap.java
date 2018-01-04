@@ -7,7 +7,7 @@ public class Heap {
     int currentItemCount;
 
 	public Heap() {
-	    int maxHeapSize = Constants.mapHeight * Constants.mapWidth;
+	    int maxHeapSize = Constants.mapHeight * Constants.mapWidth + 2;
         items = new Element[maxHeapSize];
     }
 

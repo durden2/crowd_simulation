@@ -5,22 +5,32 @@ import java.util.ArrayList;
  */
 public class FinalForce {
 
+    static ArrayList<Pedestrian> getNeighbours(Pedestrian[] pedestriansOnMap, Pedestrian currentPedestrian) {
+        ArrayList<Pedestrian> neighbours = new ArrayList<>();
+        for (int i = 0; i < pedestriansOnMap.length; i++) {
+            if ((currentPedestrian.position.y != pedestriansOnMap[i].position.y) ||
+                    currentPedestrian.position.x != pedestriansOnMap[i].position.x) {
+                neighbours.add(pedestriansOnMap[i]);
+            }
+        }
+        return neighbours;
+    }
     static vector2d calculateFinalForce (Pedestrian Apedestrian, Map map) {
-        ArrayList<Pedestrian> neightbours = CheckIfIntersect.checkIfIntersect(Apedestrian, map.pedestrians);
-
+        // in fact getting all the pedestrians excluding itself
+        ArrayList<Pedestrian> neighbours = getNeighbours(map.pedestrians, Apedestrian);
         vector2d force = new vector2d();
-        for (int i = 0; i < neightbours.size(); i++) {
-            force = force.dodaj(SocioPhisicalForce.calculateSocioPhisicalForce(Apedestrian, neightbours.get(i)));
-            force = force.dodaj(PhisicalForce.calculatePhisicalForce(Apedestrian, neightbours.get(i)));
+        for (int i = 0; i < neighbours.size(); i++) {
+            force = force.dodaj(SocioPhisicalForce.calculateSocioPhisicalForce(Apedestrian, neighbours.get(i)));
+            force = force.dodaj(PhisicalForce.calculatePhisicalForce(Apedestrian, neighbours.get(i)));
         }
 
         force = force.dodaj(CalculateDesiredForce.calculateDesidedForce(Apedestrian, map.targetNode.position));
 
-        ArrayList<Element> obstacles = CheckIfIntersect.checkIfIntersectWithObstacles(Apedestrian, map.obstacles);
+        ArrayList<Element> obstacles = map.obstacles;
 
         for (int i = 0; i < obstacles.size(); i++) {
             force = force.dodaj(WallsForce.calculateWallsForce(Apedestrian, obstacles.get(i)));
         }
-        return new vector2d(-force.getX() / 100000, -force.getY() / 100000);
+        return new vector2d(force.getX() / 100, force.getY() / 100);
     }
 }

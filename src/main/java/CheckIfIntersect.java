@@ -13,17 +13,15 @@ public class CheckIfIntersect {
         ArrayList<Pedestrian> neighbours = new ArrayList<>();
 
         for (int i = 0; i < pedestriansOnMap.length; i++) {
-            if ((pedestrianToCheck.position.y != pedestriansOnMap[i].position.y) &&
+            if ((pedestrianToCheck.position.y != pedestriansOnMap[i].position.y) ||
                     pedestrianToCheck.position.x != pedestriansOnMap[i].position.x) {
-                double distanceX = pow(pedestrianToCheck.position.x - pedestriansOnMap[i].position.x, 2);
-                double distanceY = pow(pedestrianToCheck.position.y - pedestriansOnMap[i].position.y, 2);
+                /*double distance = Distance.calculateDistance(pedestrianToCheck.position, pedestriansOnMap[i].position, false);
                 double radiusSum = pedestrianToCheck.getRadius() + pedestriansOnMap[i].getRadius();
-                double radiusSubtract = pedestrianToCheck.getRadius() - pedestriansOnMap[i].getRadius();
-                if ((distanceX + distanceY) <= pow(radiusSum, 2)) {
-                    if ((distanceX + distanceY) >= pow(radiusSubtract, 2)) {
-                        neighbours.add(pedestriansOnMap[i]);
-                    }
-                }
+                if (distance <= radiusSum) {
+                    neighbours.add(pedestriansOnMap[i]);
+                }*/
+
+                neighbours.add(pedestriansOnMap[i]);
             }
         }
         return neighbours;
@@ -33,16 +31,16 @@ public class CheckIfIntersect {
         ArrayList<Element> neighbours = new ArrayList<>();
 
         for (int i = 0; i < obstaclesOnMap.size(); i++) {
-            if ((pedestrianToCheck.position.y != obstaclesOnMap.get(i).position.y) &&
+            if ((pedestrianToCheck.position.y != obstaclesOnMap.get(i).position.y) ||
                     pedestrianToCheck.position.x != obstaclesOnMap.get(i).position.x) {
-                double distanceX = pow(pedestrianToCheck.position.x - obstaclesOnMap.get(i).position.x, 2);
-                double distanceY = pow(pedestrianToCheck.position.y - obstaclesOnMap.get(i).position.y, 2);
+                /*double distance = Distance.calculateDistance(pedestrianToCheck.position, obstaclesOnMap.get(i).position, false);
                 double radius = pedestrianToCheck.getRadius();
-                if ((distanceX + distanceY) <= pow(radius, 2)) {
+                if (distance <= radius) {
                         neighbours.add(obstaclesOnMap.get(i));
-                    }
-                }
+                }*/
+                neighbours.add(obstaclesOnMap.get(i));
             }
+        }
         return neighbours;
     }
 }

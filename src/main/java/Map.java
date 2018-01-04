@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -17,13 +18,18 @@ public class Map {
             pedestrians[i].setPath(path);
         }
     }
-    public void generatePedestrians() {
-        int numberOfPedestrians = Constants.numberOfPedestrians;
+    public void generatePedestrians(int numberOfPed) {
+        int numberOfPedestrians = numberOfPed;
         pedestrians = new Pedestrian[numberOfPedestrians];
 
         for (int i = 0; i < numberOfPedestrians; i++) {
+            boolean randomPedestrians = true;
             int randomX = 50;
-            int randomY = 10 + (i * 20);
+            int randomY = 50 + (i * 20);
+            if (randomPedestrians) {
+                randomX = ThreadLocalRandom.current().nextInt(5, 250 - 1);
+                randomY = ThreadLocalRandom.current().nextInt(5, Constants.mapHeight - 1);
+            }
             points[randomX][randomY].elementTypeVariable = elementType.PEDESTRIAN;
             pedestrians[i] = new Pedestrian();
             pedestrians[i] = new Pedestrian();
@@ -37,21 +43,28 @@ public class Map {
         this.targetNode = node;
     }
 
+    public int getIndexIfExist(ArrayList<Element> obstacles, int i, int j) {
+        for (int ind = 0; ind < obstacles.size(); ind++) {
+            if ((obstacles.get(ind).position.x == i) && (obstacles.get(ind).position.y == j)) {
+                return ind;
+            }
+        }
+        return -1;
+    }
+
     public Map() {
         points = new Element[Constants.mapWidth][Constants.mapHeight];
         obstacles = new ArrayList<>();
+        ArrayList<Element> mapData = Grids.primaryMap();
         for (int i = 0; i < Constants.mapWidth; i++) {
             for (int j = 0; j < Constants.mapHeight; j++) {
-                if ((i == 350) && (j < 250 || j > 260 )) {
+                int index = getIndexIfExist(mapData, i, j);
+                if (index > -1) {
                     points[i][j] = new Element(new Position(i, j), elementType.OBSTACLE);
-                    obstacles.add(points[i][j]);
-                } else if ((i == 300) && (j > 200 && j < 300 )) {
-                    points[i][j] = new Element(new Position(i, j), elementType.OBSTACLE);
-                    obstacles.add(points[i][j]);
-                }
-                else {
+                } else {
                     points[i][j] = new Element(new Position(i, j), elementType.EMPTY);
                 }
+
             }
         }
     };

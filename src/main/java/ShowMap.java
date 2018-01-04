@@ -1,3 +1,4 @@
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Pos;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
@@ -10,6 +11,8 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 
 import static java.lang.Math.PI;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
 import static java.lang.StrictMath.cos;
 import static java.lang.StrictMath.floor;
 import static java.lang.StrictMath.sin;
@@ -26,12 +29,58 @@ import static org.lwjgl.system.MemoryStack.stackPush;
 public class ShowMap {
 
     private long window;
-    private long timeStamp = 125; //milisec
+    private long timeStamp = 50; //milisec
+    private long simulationStartTime = 0;
+    private boolean simulationFinished = false;
 
-    public vector2d celculateNewVelocity(vector2d force, float mass) {
-        vector2d velocity = force.multipleByNumber(timeStamp / 1000);
-        return new vector2d(velocity.getX() / mass, velocity.getY() / mass);
-    };
+    public vector2d celculateAcc(vector2d force, float mass) {
+        vector2d acc = force.divideByNumber(mass);
+        return acc;
+    }
+
+    public boolean isMoveHorizontal(Position a, Position b) {
+        if (a.x == b.x || a.y == b.y) {
+            return true;
+        }
+        return false;
+    }
+
+    public void calculatePathElementsWent(ArrayList<Position> path, Pedestrian currentAgent, vector2d distance) {
+        vector2d dist = distance.dodaj(currentAgent.distanceLeft);
+        currentAgent.distanceLeft = new vector2d(dist.getX() - (int) dist.getX(), dist.getY() - (int) dist.getY());
+        dist = new vector2d((int) dist.getX(), (int) dist.getY());
+        for (int t = currentAgent.indexVisited; t < path.size() - 1; t ++) {
+            if (vector2d.calculateVectorMagnitude(dist) == 0) {
+                currentAgent.indexVisited = t;
+                break;
+            }
+            int up = 0;
+            int side = 0;
+            if (dist.getY() != 0) {
+                up = 1;
+            }
+            if (dist.getX() != 0) {
+                side = 1;
+            }
+            dist = new vector2d(dist.getX() - side, dist.getY() - up);
+            currentAgent.indexVisited = t;
+        }
+    }
+
+    public vector2d calculateDistance (vector2d force, Pedestrian currentAgent, Map map) {
+        vector2d newAcc = celculateAcc(force, currentAgent.getMass());
+        float t = timeStamp / 1000f;
+        vector2d startDistance = currentAgent.getVelocity().multipleByNumber(t);
+        vector2d accDistance = newAcc.multipleByNumber(pow(t, 2)).divideByNumber(2);
+        vector2d finalDistance = startDistance.dodaj(accDistance);
+
+        vector2d currentVelocityVector = currentAgent.getDesiredVelocity();
+        vector2d velocityWithAcc = newAcc.multipleByNumber(t);
+        vector2d newVelocity = new vector2d(velocityWithAcc.getX() + currentVelocityVector.getX(), velocityWithAcc.getY() + currentVelocityVector.getY());
+        currentAgent.setVelocity(newVelocity);
+        return finalDistance;
+
+    }
 
     public boolean checkIfObstacleOnTheWay(Position currentPosition, Position newPosititon, ArrayList<Element> obstacles) {
         for (int i = 0; i < obstacles.size(); i++) {
@@ -137,6 +186,7 @@ public class ShowMap {
     }
 
     private void loop(Map map) throws InterruptedException {
+        ArrayList<Position> pos = new ArrayList<>();
         // This line is critical for LWJGL's interoperation with GLFW's
         // OpenGL context, or any context that is managed externally.
         // LWJGL detects the context that is current in the current thread,
@@ -161,6 +211,75 @@ public class ShowMap {
             float x;
             float y;
 
+            for (int g = 0; g < map.pedestrians.length; g++) {
+                Pedestrian currentAgent = map.pedestrians[g];
+
+                glColor3f(1.0f, 0.0f, 0.0f);
+                ArrayList<Position> path = currentAgent.getPath();
+                boolean found = false;
+                double distanceX = 0d;
+                double distanceY = 0d;
+
+                if (!currentAgent.stopped) {
+                    vector2d r = FinalForce.calculateFinalForce(currentAgent, map);
+                    vector2d distance = calculateDistance(r, currentAgent, map);
+                    calculatePathElementsWent(path, currentAgent, distance);
+                    distanceX = distance.getX() - 1;
+                    distanceY = distance.getY() - 1;
+                }
+
+                for (int i = 0; i < path.size(); i++) {
+                    Position pathElement = path.get(i);
+                    if (!map.pedestrians[g].finished && !found && map.pedestrians[g].indexVisited == i) {
+                        Position newPosition = new Position(pathElement.x + (int) distanceX, pathElement.y + (int) distanceY);
+                        Collisions.avoid(map, currentAgent, newPosition);
+                        if (!currentAgent.stopped || !checkIfObstacleOnTheWay(currentAgent.position, newPosition, map.obstacles)) {
+                            currentAgent.position = newPosition;
+                            //AStar a = new AStar();
+                            //ArrayList<Position> path2 = a.calculatePath(new Element(newPosition, elementType.PEDESTRIAN), map.targetNode, map);
+                            //currentAgent.setPath(path2);
+                        }
+                        pos.add(newPosition);
+                        found = true;
+                        if (currentAgent.indexVisited >= path.size()) {
+                            currentAgent.finished = true;
+                        }
+                    }
+                }
+
+                //draw paths
+                for (int i = 0; i < path.size(); i++) {
+                    Position pathElement = path.get(i);
+                    x = normalize(pathElement.x, false);
+                    y = normalize(pathElement.y, true);
+                    glVertex2f(x, y);
+                }
+                //end drawing paths
+
+                //draw pedestrians
+                glColor3f(0.0f, 1.0f, 0.0f);
+                if (!currentAgent.finished) {
+                    DrawCircle(currentAgent.position.x, currentAgent.position.y, 5, 100);
+                    DrawCircle(currentAgent.position.x, currentAgent.position.y, 4, 100);
+                    DrawCircle(currentAgent.position.x, currentAgent.position.y, 3, 100);
+                    DrawCircle(currentAgent.position.x, currentAgent.position.y, 2, 100);
+                    DrawCircle(currentAgent.position.x, currentAgent.position.y, 1, 100);
+                }
+                x = normalize(currentAgent.position.x, false);
+                y = normalize(currentAgent.position.y, true);
+                glVertex2f(x, y);
+                //end drawing pedestrians
+            }
+
+            /*glColor3f(1.0f, 1.0f, 1.0f);
+            for (int d = 0; d < pos.size(); d++) {
+                Position curr = pos.get(d);
+                x = normalize(curr.x, false);
+                y = normalize(curr.y, true);
+                glVertex2f(x, y);
+            }*/
+
+
             // Draw obstacles
             for (int i = 0; i < Constants.mapWidth; i++) {
                 for (int j = 0; j < Constants.mapHeight; j++) {
@@ -174,65 +293,29 @@ public class ShowMap {
             }
             // end drawing obstacles
 
-            for (int g = 0; g < map.pedestrians.length; g++) {
-
-                glColor3f(1.0f, 0.0f, 0.0f);
-                ArrayList<Position> path = map.pedestrians[g].getPath();
-                boolean found = false;
-                vector2d r = FinalForce.calculateFinalForce(map.pedestrians[g], map);
-
-                for (int i = 0; i < path.size(); i++) {
-                    Position pathElement = path.get(i);
-                    if (!found && map.pedestrians[g].indexVisited == i) {
-                        Position newPosititon = new Position(pathElement.x + (int)r.getX(), pathElement.y + (int)r.getY());
-                        Position currentPosition = map.pedestrians[g].position;
-                        if (!checkIfObstacleOnTheWay(currentPosition, newPosititon, map.obstacles)) {
-                            vector2d newVelocity = celculateNewVelocity(r, map.pedestrians[g].getMass());
-                            map.pedestrians[g].setVelocity(newVelocity.dodaj(map.pedestrians[g].getVelocity()));
-                            map.pedestrians[g].velocitySum = map.pedestrians[g].velocitySum.dodaj(map.pedestrians[g].getVelocity());
-                            if (Math.round(map.pedestrians[g].velocitySum.getX()) >= 1) {
-                                int calkowita = (int) Math.round(map.pedestrians[g].velocitySum.getX());
-                                map.pedestrians[g].velocitySum = new vector2d(map.pedestrians[g].velocitySum.getX() - calkowita, map.pedestrians[g].velocitySum.getY() - calkowita);
-                                map.pedestrians[g].velocitySum = map.pedestrians[g].getVelocity().dodaj(map.pedestrians[g].velocitySum);
-                                map.pedestrians[g].position = newPosititon;
-                                map.pedestrians[g].indexVisited = i + calkowita;
-                                found = true;
-                            }
-                        } else {
-                            pathElement = path.get(i--);
-                            newPosititon = new Position(pathElement.x + (int)r.getX(), pathElement.y + (int)r.getY());
-                            map.pedestrians[g].position = newPosititon;
-                        }
-                        if (map.pedestrians[g].indexVisited >= path.size()) {
-                            map.pedestrians[g].finished = true;
-                        }
-                    }
-                    x = normalize(pathElement.x, false);
-                    y = normalize(pathElement.y, true);
-                    glVertex2f(x, y);
-                }
-
-                glColor3f(0.0f, 1.0f, 0.0f);
-                /*
-                x = normalize((float) (map.pedestrians[g].position.x + r.getX()), false);
-                y = normalize((float) (map.pedestrians[g].position.y + r.getX()), true);
-                glVertex2f(x, y);*/
-                if (!map.pedestrians[g].finished) {
-                    DrawCircle(map.pedestrians[g].position.x, map.pedestrians[g].position.y, 6, 100);
-                }
-
-                x = normalize(map.pedestrians[g].position.x, false);
-                y = normalize(map.pedestrians[g].position.y, true);
-                glVertex2f(x, y);
-            }
-
             // draw target node
             x = normalize(map.targetNode.position.x, false);
             y = normalize(map.targetNode.position.y, true);
             glVertex2f(x, y);
             glEnd();
 
+            if (!simulationFinished) {
+                boolean broken = true;
+                for (int d = 0; d < map.pedestrians.length; d++) {
+                    if (!map.pedestrians[d].finished) {
+                        broken = false;
+                        break;
+                    }
+                }
+                if (broken) {
+                    System.out.print("Simulation finished in time");
+                    System.out.print(this.simulationStartTime);
+                    this.simulationFinished = true;
+                    throw new InterruptedException("SKONCZONO");
+                }
+            }
             long currentTime = System.nanoTime() / 1000000;
+            this.simulationStartTime += timeStamp - (currentTime - startTime);
             Thread.sleep(timeStamp - (currentTime - startTime));
 
             glfwSwapBuffers(window);

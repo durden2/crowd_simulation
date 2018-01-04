@@ -1,4 +1,3 @@
-import static java.lang.Math.cos;
 import static java.lang.Math.pow;
 import static java.lang.StrictMath.sqrt;
 
@@ -44,7 +43,7 @@ public class vector2d {
     }
 
     vector2d subtact(vector2d v) {
-        return new vector2d(v.getX() - this.x, v.getY() - this.y);
+        return new vector2d(this.x - v.getX(), this.y - v.getY());
     }
 
     vector2d divideByNumber(double number) {

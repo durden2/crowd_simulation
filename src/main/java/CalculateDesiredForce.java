@@ -1,3 +1,5 @@
+import java.awt.*;
+
 /**
  * Created by Gandi on 14/11/2017.
  */
@@ -9,18 +11,19 @@ public class CalculateDesiredForce {
 
         double mass = pedestrian.getMass();
         Position currentPosition = pedestrian.position;
-        vector2d desiredSpeed = pedestrian.getVelocity();
+        double desiredSpeed = vector2d.calculateVectorMagnitude(pedestrian.getDesiredVelocity());
 
         vector2d directionOfMotion = vector2d.createVectorFromPoints(currentPosition, targetNode);
-        directionOfMotion = directionOfMotion.divideByNumber(vector2d.calculateVectorMagnitude(directionOfMotion));
-        vector2d direction = directionOfMotion;
+        directionOfMotion = vector2d.calculateUnitVector(directionOfMotion);
         vector2d currentSpeed = pedestrian.getVelocity();
 
-        double scalar = mass * vector2d.calculateVectorMagnitude(desiredSpeed);
-        vector2d d = direction.multipleByNumber(scalar);
+        vector2d d = directionOfMotion.multipleByNumber(desiredSpeed);
 
-        vector2d force = d.subtact(currentSpeed).divideByNumber(adaptationTime);
+        d = new vector2d(d.getX() - currentSpeed.getX(), d.getY() - currentSpeed.getY());
 
-        return force;
+        vector2d f = d.multipleByNumber(mass);
+
+        f = new vector2d(f.getX() / adaptationTime, f.getY() / adaptationTime);
+        return f;
     }
 }

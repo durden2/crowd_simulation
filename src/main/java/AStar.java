@@ -1,34 +1,9 @@
-import java.awt.*;
 import java.util.*;
-
-import static java.lang.Math.pow;
-import static java.lang.Math.sqrt;
 
 /**
  * Created by Gandi on 10/11/2017.
  */
 public class AStar {
-
-    public double getDistance(Position startNode, Position endNode) {
-        int neighbourX = startNode.x;
-        int neighbourY = startNode.y;
-        int currentElementX = endNode.x;
-        int currentElementY = endNode.y;
-
-        int diffA = neighbourX - currentElementX;
-        int diff2 = neighbourY - currentElementY;
-        double el = sqrt((diffA * diffA) + (diff2 * diff2));
-        return el;
-
-        /*
-        int dstX = Math.abs(neighbourX - currentElementX);
-        int dstY = Math.abs(neighbourY - currentElementY);
-
-        if (dstX > dstY)
-            return 14*dstY + 10* (dstX-dstY);
-        return 14*dstX + 10 * (dstY-dstX);*/
-    }
-
     public ArrayList<Position> getPath(Element node) {
         ArrayList<Position> path = new ArrayList<>();
         Element currentNode = node;
@@ -55,7 +30,7 @@ public class AStar {
 
             // path has been found
             if ((endNode.position.equals(currentElement.position))) {
-                System.out.println("Path found");
+                //System.out.println("Path found");
                 return getPath(currentElement);
                 //return path;
             }
@@ -73,12 +48,12 @@ public class AStar {
 
                 Element currentNeighbour = neighbours.get(i);
 
-                double newCostToNeighbour = currentElement.getGcost() + getDistance(currentElement.position, currentNeighbour.position);
+                double newCostToNeighbour = currentElement.getGcost() + Distance.calculateDistance(currentElement.position, currentNeighbour.position, true);
 
                 boolean isInOpenSet = open.Contains(currentNeighbour);
                 if ((newCostToNeighbour < currentNeighbour.getGcost()) || !isInOpenSet) {
 
-                    currentNeighbour.setHcost(getDistance(currentNeighbour.position, endNode.position));
+                    currentNeighbour.setHcost(Distance.calculateDistance(currentNeighbour.position, endNode.position, false));
                     currentNeighbour.setGcost(newCostToNeighbour);
                     currentNeighbour.setParentNode(currentElement);
 

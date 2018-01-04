@@ -1,6 +1,4 @@
-import static java.lang.Math.pow;
 import static java.lang.StrictMath.exp;
-import static java.lang.StrictMath.sqrt;
 
 /**
  * Created by Gandi on 14/11/2017.
@@ -12,15 +10,16 @@ public class SocioPhisicalForce {
         // unit vector is pointing from pedestrian j to pedestrian i.
 
         double radiusSum = Apedestrian.getRadius() + Bpedestrian.getRadius();
-        double distance = Distance.calculateDistance(Apedestrian.position, Bpedestrian.position);
+        double distance = Distance.calculateDistance(Apedestrian.position, Bpedestrian.position, false);
 
         // pixel = cm, need meters to calculate
-        radiusSum /= 100;
-        distance /= 100;
+        radiusSum /= Constants.mapScale;
+        distance /= Constants.mapScale;
 
         vector2d unitVector = vector2d.calculateUnitVector(vector2d.createVectorFromPoints(Apedestrian.position, Bpedestrian.position));
 
-        double exponent = exp((radiusSum - distance) / Constants.distanseOfSocialRepulsiveForce);
+        double exponetInside = (radiusSum - distance) / Constants.distanseOfSocialRepulsiveForce;
+        double exponent = exp(exponetInside);
         double two = Constants.strengthOfSocialForce * exponent;
 
         vector2d srf = unitVector.multipleByNumber(two);
