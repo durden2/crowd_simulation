@@ -24,13 +24,13 @@ public class FinalForce {
             force = force.dodaj(PhisicalForce.calculatePhisicalForce(Apedestrian, neighbours.get(i)));
         }
 
-        force = force.dodaj(CalculateDesiredForce.calculateDesidedForce(Apedestrian, map.targetNode.position));
+        force = force.dodaj(CalculateDesiredForce.calculateDesiredForce(Apedestrian, map.targetNode.position));
 
         ArrayList<Element> obstacles = map.obstacles;
 
         for (int i = 0; i < obstacles.size(); i++) {
             force = force.dodaj(WallsForce.calculateWallsForce(Apedestrian, obstacles.get(i)));
         }
-        return new vector2d(force.getX() / 100, force.getY() / 100);
+        return new vector2d(force.getX(), force.getY());
     }
 }

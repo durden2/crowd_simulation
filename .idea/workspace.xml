@@ -2,12 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85314094-e8ae-410a-a373-7f2edfd765eb" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ConnectSocialForce.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Collisions.class" afterPath="$PROJECT_DIR$/target/classes/Collisions.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/FinalForce.class" afterPath="$PROJECT_DIR$/target/classes/FinalForce.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Main.class" afterPath="$PROJECT_DIR$/target/classes/Main.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/Pedestrian.class" afterPath="$PROJECT_DIR$/target/classes/Pedestrian.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ShowMap.class" afterPath="$PROJECT_DIR$/target/classes/ShowMap.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Constants.java" afterPath="$PROJECT_DIR$/src/main/java/Constants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/CalculateDesiredForce.java" afterPath="$PROJECT_DIR$/src/main/java/CalculateDesiredForce.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Collisions.java" afterPath="$PROJECT_DIR$/src/main/java/Collisions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/FinalForce.java" afterPath="$PROJECT_DIR$/src/main/java/FinalForce.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Main.java" afterPath="$PROJECT_DIR$/src/main/java/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Pedestrian.java" afterPath="$PROJECT_DIR$/src/main/java/Pedestrian.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ShowMap.java" afterPath="$PROJECT_DIR$/src/main/java/ShowMap.java" />
@@ -31,8 +34,18 @@
       <file leaf-file-name="FinalForce.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/FinalForce.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="31" column="12" lean-forward="true" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
+            <state relative-caret-position="235">
+              <caret line="26" column="8" lean-forward="false" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CalculateDesiredForce.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/CalculateDesiredForce.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="17" column="57" lean-forward="false" selection-start-line="17" selection-start-column="57" selection-end-line="17" selection-end-column="57" />
               <folding />
             </state>
           </provider>
@@ -41,13 +54,14 @@
       <file leaf-file-name="ShowMap.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ShowMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="79">
-              <caret line="48" column="64" lean-forward="false" selection-start-line="48" selection-start-column="64" selection-end-line="48" selection-end-column="64" />
+            <state relative-caret-position="399">
+              <caret line="24" column="31" lean-forward="false" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
               <folding>
+                <element signature="imports" expanded="true" />
                 <element signature="method#DrawCircle#0;class#ShowMap#0" expanded="false" />
-                <marker date="1515090621447" expanded="false" signature="3262:3468" ph="{...}" />
-                <marker date="1515090621447" expanded="false" signature="3526:3926" ph="{...}" />
-                <marker date="1515090621447" expanded="false" signature="4456:6714" ph="{...}" />
+                <marker date="1515146422961" expanded="false" signature="3224:3430" ph="{...}" />
+                <marker date="1515146422961" expanded="false" signature="3488:3888" ph="{...}" />
+                <marker date="1515146422961" expanded="false" signature="4418:6676" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -57,37 +71,27 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="441">
-              <caret line="21" column="37" lean-forward="false" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
+              <caret line="21" column="38" lean-forward="false" selection-start-line="21" selection-start-column="38" selection-end-line="21" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConnectSocialForce.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ConnectSocialForce.java">
+      <file leaf-file-name="Collisions.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Collisions.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="3" column="33" lean-forward="true" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
+            <state relative-caret-position="382">
+              <caret line="59" column="107" lean-forward="false" selection-start-line="59" selection-start-column="107" selection-end-line="59" selection-end-column="107" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Grids.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Grids.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="847">
-              <caret line="76" column="22" lean-forward="false" selection-start-line="76" selection-start-column="22" selection-end-line="76" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="147">
-              <caret line="8" column="37" lean-forward="false" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
+              <caret line="8" column="38" lean-forward="false" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -106,11 +110,11 @@
       <file leaf-file-name="Pedestrian.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Pedestrian.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="403">
-              <caret line="72" column="25" lean-forward="false" selection-start-line="72" selection-start-column="25" selection-end-line="72" selection-end-column="25" />
+            <state relative-caret-position="109">
+              <caret line="41" column="73" lean-forward="false" selection-start-line="41" selection-start-column="73" selection-end-line="41" selection-end-column="73" />
               <folding>
-                <element signature="e#618#619#0" expanded="true" />
-                <element signature="e#672#673#0" expanded="true" />
+                <element signature="e#642#643#0" expanded="true" />
+                <element signature="e#696#697#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -127,14 +131,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>[i]</find>
-      <find>finished</find>
-      <find>Dis</find>
-      <find>velocityS</find>
-      <find>found</find>
-      <find>1000000</find>
-      <find>map.pedestrians[g]</find>
-      <find>s</find>
       <find>sq</find>
       <find>sqr</find>
       <find>sqrt</find>
@@ -157,6 +153,14 @@
       <find>u</find>
       <find>i</find>
       <find>isMo</find>
+      <find>.</find>
+      <find>.s</find>
+      <find>.st</find>
+      <find>.sto</find>
+      <find>.stop</find>
+      <find>.stopp</find>
+      <find>simulationFini</find>
+      <find>system.o</find>
     </findStrings>
     <replaceStrings>
       <replace>Apedestrian</replace>
@@ -192,18 +196,18 @@
         <option value="$PROJECT_DIR$/src/main/java/CheckIfIntersect.java" />
         <option value="$PROJECT_DIR$/src/main/java/Distance.java" />
         <option value="$PROJECT_DIR$/src/main/java/SocialForce.java" />
-        <option value="$PROJECT_DIR$/src/main/java/CalculateDesiredForce.java" />
         <option value="$PROJECT_DIR$/src/main/java/WallsForce.java" />
         <option value="$PROJECT_DIR$/src/main/java/SocioPhisicalForce.java" />
         <option value="$PROJECT_DIR$/src/main/java/AStar.java" />
         <option value="$PROJECT_DIR$/src/main/java/PhisicalForce.java" />
         <option value="$PROJECT_DIR$/src/main/java/Grids.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Collisions.java" />
         <option value="$PROJECT_DIR$/src/main/java/Map.java" />
-        <option value="$PROJECT_DIR$/src/main/java/FinalForce.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ShowMap.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Pedestrian.java" />
         <option value="$PROJECT_DIR$/src/main/java/Constants.java" />
+        <option value="$PROJECT_DIR$/src/main/java/FinalForce.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Pedestrian.java" />
+        <option value="$PROJECT_DIR$/src/main/java/CalculateDesiredForce.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Collisions.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ShowMap.java" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
       </list>
     </option>
@@ -713,8 +717,8 @@
         <state relative-caret-position="1239">
           <caret line="59" column="5" lean-forward="true" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
           <folding>
-            <element signature="e#946#947#0" expanded="false" />
-            <element signature="e#986#987#0" expanded="false" />
+            <element signature="e#970#971#0" expanded="false" />
+            <element signature="e#1098#1099#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -763,10 +767,11 @@
         <state relative-caret-position="2583">
           <caret line="138" column="32" lean-forward="false" selection-start-line="138" selection-start-column="32" selection-end-line="138" selection-end-column="32" />
           <folding>
+            <element signature="imports" expanded="true" />
             <element signature="method#DrawCircle#0;class#ShowMap#0" expanded="false" />
-            <marker date="1515090621447" expanded="false" signature="3262:3468" ph="{...}" />
-            <marker date="1515090621447" expanded="false" signature="3526:3926" ph="{...}" />
-            <marker date="1515090621447" expanded="false" signature="4456:6714" ph="{...}" />
+            <marker date="1515146422961" expanded="false" signature="3224:3430" ph="{...}" />
+            <marker date="1515146422961" expanded="false" signature="3488:3888" ph="{...}" />
+            <marker date="1515146422961" expanded="false" signature="4418:6676" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -995,42 +1000,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Grids.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="847">
-          <caret line="76" column="22" lean-forward="false" selection-start-line="76" selection-start-column="22" selection-end-line="76" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Map.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="588">
           <caret line="57" column="53" lean-forward="false" selection-start-line="57" selection-start-column="43" selection-end-line="57" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Collisions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="631">
-          <caret line="58" column="47" lean-forward="true" selection-start-line="58" selection-start-column="47" selection-end-line="58" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/FinalForce.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="31" column="12" lean-forward="true" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/CalculateDesiredForce.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="16" column="25" lean-forward="false" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -1043,34 +1016,59 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Pedestrian.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Grids.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="72" column="25" lean-forward="false" selection-start-line="72" selection-start-column="25" selection-end-line="72" selection-end-column="25" />
-          <folding>
-            <element signature="e#618#619#0" expanded="true" />
-            <element signature="e#672#673#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="847">
+          <caret line="76" column="22" lean-forward="false" selection-start-line="76" selection-start-column="22" selection-end-line="76" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/FinalForce.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="26" column="8" lean-forward="false" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/CalculateDesiredForce.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="17" column="57" lean-forward="false" selection-start-line="17" selection-start-column="57" selection-end-line="17" selection-end-column="57" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
-          <caret line="21" column="37" lean-forward="false" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
+          <caret line="21" column="38" lean-forward="false" selection-start-line="21" selection-start-column="38" selection-end-line="21" selection-end-column="38" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Pedestrian.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="41" column="73" lean-forward="false" selection-start-line="41" selection-start-column="73" selection-end-line="41" selection-end-column="73" />
+          <folding>
+            <element signature="e#642#643#0" expanded="true" />
+            <element signature="e#696#697#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ShowMap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="48" column="64" lean-forward="false" selection-start-line="48" selection-start-column="64" selection-end-line="48" selection-end-column="64" />
+        <state relative-caret-position="399">
+          <caret line="24" column="31" lean-forward="false" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
           <folding>
+            <element signature="imports" expanded="true" />
             <element signature="method#DrawCircle#0;class#ShowMap#0" expanded="false" />
-            <marker date="1515090621447" expanded="false" signature="3262:3468" ph="{...}" />
-            <marker date="1515090621447" expanded="false" signature="3526:3926" ph="{...}" />
-            <marker date="1515090621447" expanded="false" signature="4456:6714" ph="{...}" />
+            <marker date="1515146422961" expanded="false" signature="3224:3430" ph="{...}" />
+            <marker date="1515146422961" expanded="false" signature="3488:3888" ph="{...}" />
+            <marker date="1515146422961" expanded="false" signature="4418:6676" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1078,7 +1076,15 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
-          <caret line="8" column="37" lean-forward="false" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
+          <caret line="8" column="38" lean-forward="false" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Collisions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="59" column="107" lean-forward="false" selection-start-line="59" selection-start-column="107" selection-end-line="59" selection-end-column="107" />
           <folding />
         </state>
       </provider>

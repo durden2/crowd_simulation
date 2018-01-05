@@ -4,7 +4,7 @@ import java.awt.*;
  * Created by Gandi on 14/11/2017.
  */
 public class CalculateDesiredForce {
-     static vector2d calculateDesidedForce(Pedestrian pedestrian, Position targetNode) {
+     static vector2d calculateDesiredForce(Pedestrian pedestrian, Position targetNode) {
         // ( mass * (desiredSpeed * directionTowardsDestination) - currentSpeed ) / adaptationTime
 
         double adaptationTime = 0.5f;

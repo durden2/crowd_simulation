@@ -6,7 +6,7 @@ public class Main {
             System.out.print("Path finding...");
             Map ko = new Map();
             ko.setTargetNode(new Element(new Position(750, 150), elementType.EXIT));
-            ko.generatePedestrians(70);
+            ko.generatePedestrians(100);
             ko.caltulatePaths();
             try {
                 new ShowMap().run(ko);

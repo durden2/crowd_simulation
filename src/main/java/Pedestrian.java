@@ -16,6 +16,7 @@ public class Pedestrian extends Element {
     public double distanceLeft;
     private ArrayList<Position> path = new ArrayList<>();
     public boolean stopped;
+    public int attempt;
 
     public vector2d getDesiredVelocity() {
         return desiredVelocity;
@@ -38,7 +39,9 @@ public class Pedestrian extends Element {
     }
 
     public void setVelocity(vector2d velocity) {
-        this.velocity = velocity;
+        if (!Double.isNaN(vector2d.calculateVectorMagnitude(velocity))) {
+            this.velocity = velocity;
+        }
     }
 
     public float getRadius() {
@@ -78,5 +81,6 @@ public class Pedestrian extends Element {
         this.finished = false;
         this.distanceLeft = 0d;
         this.stopped = false;
+        this.attempt = 0;
     }
 }

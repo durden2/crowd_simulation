@@ -1,20 +1,13 @@
-import javafx.geometry.Dimension2D;
-import javafx.geometry.Pos;
-import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
-import java.awt.*;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 
-import static java.lang.Math.PI;
 import static java.lang.Math.pow;
-import static java.lang.Math.sqrt;
 import static java.lang.StrictMath.cos;
-import static java.lang.StrictMath.floor;
 import static java.lang.StrictMath.sin;
 import static java.sql.Types.NULL;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
@@ -29,7 +22,7 @@ import static org.lwjgl.system.MemoryStack.stackPush;
 public class ShowMap {
 
     private long window;
-    private long timeStamp = 60; //milisec
+    private long timeStamp = 120; //milisec
     private long simulationStartTime = 0;
     private boolean simulationFinished = false;
 
@@ -48,9 +41,14 @@ public class ShowMap {
     public void calculatePathElementsWent(ArrayList<Position> path, Pedestrian currentAgent, vector2d distance) {
         double dist = vector2d.calculateVectorMagnitude(distance) + currentAgent.distanceLeft;
         dist *= Constants.mapScale;
-        for (int t = currentAgent.indexVisited; t < path.size() - 1; t ++) {
+        for (int t = currentAgent.indexVisited; t < path.size(); ++t) {
+            if (Double.isNaN(dist)) {
+                currentAgent.indexVisited = path.size() - 1;
+                currentAgent.distanceLeft = 0;
+                break;
+            }
             if (dist < 1) {
-                currentAgent.indexVisited = t;
+                currentAgent.indexVisited = t++;
                 currentAgent.distanceLeft = dist / Constants.mapScale;
                 break;
             }
@@ -203,6 +201,11 @@ public class ShowMap {
             float y;
 
             for (int g = 0; g < map.pedestrians.length; g++) {
+                if (map.pedestrians[g].finished) {
+                    for(int i = g; i < map.pedestrians.length -1; i++) {
+                        map.pedestrians[i] = map.pedestrians[i + 1];
+                    }
+                }
                 Pedestrian currentAgent = map.pedestrians[g];
 
                 glColor3f(1.0f, 0.0f, 0.0f);
@@ -232,7 +235,8 @@ public class ShowMap {
                             //currentAgent.setPath(path2);
                         }
                         pos.add(newPosition);
-                        if (currentAgent.indexVisited >= path.size()) {
+                        //System.out.println("index: " + indexVisited + "path: " + path.size());
+                        if (indexVisited >= path.size() - 1) {
                             currentAgent.finished = true;
                         }
                         break;
@@ -251,11 +255,9 @@ public class ShowMap {
                 //draw pedestrians
                 glColor3f(0.0f, 1.0f, 0.0f);
                 if (!currentAgent.finished) {
-                    DrawCircle(currentAgent.position.x, currentAgent.position.y, 5, 100);
-                    DrawCircle(currentAgent.position.x, currentAgent.position.y, 4, 100);
-                    DrawCircle(currentAgent.position.x, currentAgent.position.y, 3, 100);
-                    DrawCircle(currentAgent.position.x, currentAgent.position.y, 2, 100);
-                    DrawCircle(currentAgent.position.x, currentAgent.position.y, 1, 100);
+                    for(int r = 0; r <=5; r++) {
+                        DrawCircle(currentAgent.position.x, currentAgent.position.y, r, 100);
+                    }
                 }
                 x = normalize(currentAgent.position.x, false);
                 y = normalize(currentAgent.position.y, true);
@@ -286,9 +288,10 @@ public class ShowMap {
             // end drawing obstacles
 
             // draw target node
-            x = normalize(map.targetNode.position.x, false);
-            y = normalize(map.targetNode.position.y, true);
-            glVertex2f(x, y);
+            glColor3f(1.0f, 0.0f, 0.0f);
+            for(int r = 0; r <=8; r++) {
+                DrawCircle(map.targetNode.position.x, map.targetNode.position.y, 8, 100);
+            }
             glEnd();
 
             if (!simulationFinished) {
