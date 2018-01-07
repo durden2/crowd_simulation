@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Collisions {
 
     public static boolean checkIfInRange(double a, double b) {
-        double tolerance = 2d;
+        double tolerance = 3d;
         double min = b - tolerance;
         double max = b + tolerance;
         if (a > min && a < max) {
@@ -42,24 +42,27 @@ public class Collisions {
                         // back collision
                         double velocity1 = vector2d.calculateVectorMagnitude(pedestriansOnMap[i].getVelocity());
                         double velocity2 = vector2d.calculateVectorMagnitude(currentPedestrian.getVelocity());
-                        if (velocity2 > velocity1) {
+                        if (velocity2 > velocity1 && currentPedestrian.attempt < 2) {
                             currentPedestrian.setVelocity(pedestriansOnMap[i].getVelocity());
                         } else if (currentPedestrian.attempt < 1) {
-                            currentPedestrian.setVelocity(pedestriansOnMap[i].getVelocity());
+                            vector2d newVelocity = new vector2d(currentPedestrian.getVelocity().getX() * 0.7d, currentPedestrian.getVelocity().getY() * 1.3d);
+                            currentPedestrian.setVelocity(newVelocity);
                         } else {
                             currentPedestrian.attempt = 0;
                             needToStopPedestrian = true;
                         }
-                        System.out.println("back");
                     } else if (collisionNumber == 2) {
                         // side collision
-                        System.out.println("side");
                         double velocity1 = vector2d.calculateVectorMagnitude(pedestriansOnMap[i].getVelocity());
                         double velocity2 = vector2d.calculateVectorMagnitude(currentPedestrian.getVelocity());
-                        if (velocity1 > velocity2) {
-                            vector2d newVelocity = new vector2d(currentPedestrian.getVelocity().getX() * -1.5d, currentPedestrian.getVelocity().getY() * -0.5d);
+                        if (velocity1 > velocity2 && currentPedestrian.attempt < 2) {
+                            vector2d newVelocity = new vector2d(currentPedestrian.getVelocity().getX() * -1d, currentPedestrian.getVelocity().getY() * -1d);
+                            currentPedestrian.setVelocity(newVelocity);
+                        } else if (currentPedestrian.attempt < 1) {
+                            vector2d newVelocity = new vector2d(currentPedestrian.getVelocity().getX() * 0.5d, currentPedestrian.getVelocity().getY() * 1.5d);
                             currentPedestrian.setVelocity(newVelocity);
                         } else {
+                            currentPedestrian.attempt = 0;
                             needToStopPedestrian = true;
                         }
                     }
@@ -79,6 +82,10 @@ public class Collisions {
     }
 
     public static void avoid(Map map, Pedestrian currentPedestrian, Position newPosition) {
-        currentPedestrian.stopped = findNeighbours(map.pedestrians, newPosition, currentPedestrian);
+        boolean isStopped = findNeighbours(map.pedestrians, newPosition, currentPedestrian);
+        if (!currentPedestrian.stopped && isStopped) {
+            map.waitings++;
+        }
+        currentPedestrian.stopped = isStopped;
     }
 }

@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by Gandi on 14/11/2017.
@@ -17,6 +18,16 @@ public class Pedestrian extends Element {
     private ArrayList<Position> path = new ArrayList<>();
     public boolean stopped;
     public int attempt;
+
+    public Element getTargetNode() {
+        return targetNode;
+    }
+
+    public void setTargetNode(Element targetNode) {
+        this.targetNode = targetNode;
+    }
+
+    private Element targetNode;
 
     public vector2d getDesiredVelocity() {
         return desiredVelocity;

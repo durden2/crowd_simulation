@@ -24,7 +24,7 @@ public class FinalForce {
             force = force.dodaj(PhisicalForce.calculatePhisicalForce(Apedestrian, neighbours.get(i)));
         }
 
-        force = force.dodaj(CalculateDesiredForce.calculateDesiredForce(Apedestrian, map.targetNode.position));
+        force = force.dodaj(CalculateDesiredForce.calculateDesiredForce(Apedestrian, Apedestrian.getTargetNode().position));
 
         ArrayList<Element> obstacles = map.obstacles;
 

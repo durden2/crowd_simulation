@@ -18,6 +18,10 @@ public class Grids {
         ArrayList<Element> obstacles = new ArrayList<>();
         for (int i = 0; i < Constants.mapWidth; i++) {
             for (int j = 0; j < Constants.mapHeight; j++) {
+                if ((j > getPercent(5, true) && j < getPercent(85, true)) && (i == getPercent(82, false))) {
+                    obstacles.add(new Element(new Position(i, j), elementType.OBSTACLE));
+                    continue;
+                }
                 if ((j > getPercent(15, true) && j < getPercent(85, true)) && (i == getPercent(45, false))) {
                     obstacles.add(new Element(new Position(i, j), elementType.OBSTACLE));
                     continue;
@@ -62,6 +66,11 @@ public class Grids {
                     obstacles.add(new Element(new Position(i, j), elementType.OBSTACLE));
                     continue;
                 }
+                if ((i > getPercent(75, true) && i < getPercent(95, true)) && (j == getPercent(5, false))) {
+                    obstacles.add(new Element(new Position(i, j), elementType.OBSTACLE));
+                    continue;
+                }
+
             }
         }
         return obstacles;
@@ -73,8 +82,44 @@ public class Grids {
             for (int j = 0; j < Constants.mapHeight; j++) {
                 if ((i == 350) && (j < 255 || j > 260 )) {
                     obstacles.add(new Element(new Position(i, j), elementType.OBSTACLE));
-                } else if ((i == 300) && (j > 200 && j < 300 )) {
-                    //obstacles.add(new Element(new Position(i, j), elementType.OBSTACLE));
+                }
+            }
+        }
+        return obstacles;
+    }
+
+    public static ArrayList<Element> gardlo() {
+        ArrayList<Element> obstacles = new ArrayList<>();
+        for (int i = 0; i < Constants.mapWidth; i++) {
+            for (int j = 0; j < Constants.mapHeight; j++) {
+                if (i == 200) {
+                    if (j > 300 || j < 285) {
+                        obstacles.add(new Element(new Position(i, j), elementType.OBSTACLE));
+                    }
+                }
+                if (j == 300 || j == 285) {
+                    if (i > 200 && i < 400) {
+                        obstacles.add(new Element(new Position(i, j), elementType.OBSTACLE));
+                    }
+                }
+                if (i == 400) {
+                    if (j > 300 || j < 285) {
+                        obstacles.add(new Element(new Position(i, j), elementType.OBSTACLE));
+                    }
+                }
+            }
+        }
+        return obstacles;
+    }
+
+    public static ArrayList<Element> lejek() {
+        ArrayList<Element> obstacles = new ArrayList<>();
+        for (int i = 0; i < Constants.mapWidth; i++) {
+            for (int j = 0; j < Constants.mapHeight; j++) {
+                if ((i > getPercent(25, true) && i < getPercent(70, true))) {
+                    if (j > getPercent(0, false) && j < getPercent(45, false))
+                    obstacles.add(new Element(new Position(i, j), elementType.OBSTACLE));
+                    j = Constants.mapHeight;
                 }
             }
         }

@@ -9,12 +9,14 @@ public class Map {
     public Element[][] points;
     public Pedestrian[] pedestrians;
     public ArrayList<Element> obstacles;
-    public Element targetNode;
+    public Element[] targetNodes;
+    public int waitings;
+    public ArrayList<Position> walkedPaths = new ArrayList<>();
 
     public void caltulatePaths() {
         for (int i = 0; i < pedestrians.length; i ++) {
             AStar a = new AStar();
-            ArrayList<Position> path = a.calculatePath(pedestrians[i], targetNode, this);
+            ArrayList<Position> path = a.calculatePath(pedestrians[i], pedestrians[i].getTargetNode(), this);
             pedestrians[i].setPath(path);
         }
     }
@@ -27,20 +29,22 @@ public class Map {
             int randomX = 50;
             int randomY = 50 + (i * 20);
             if (randomPedestrians) {
-                randomX = ThreadLocalRandom.current().nextInt(5, 250 - 1);
+                randomX = ThreadLocalRandom.current().nextInt(5, 190 - 1);
                 randomY = ThreadLocalRandom.current().nextInt(5, Constants.mapHeight - 1);
             }
             points[randomX][randomY].elementTypeVariable = elementType.PEDESTRIAN;
             pedestrians[i] = new Pedestrian();
             pedestrians[i] = new Pedestrian();
-            vector2d desiredDirection = vector2d.createVectorFromPoints(new Position(randomX, randomY), this.targetNode.position);
+            int exitNumber = ThreadLocalRandom.current().nextInt(0, this.targetNodes.length);
+            vector2d desiredDirection = vector2d.createVectorFromPoints(new Position(randomX, randomY), this.targetNodes[exitNumber].position);
             Pedestrian temp = new Pedestrian(new Position(randomX, randomY), desiredDirection);
+            temp.setTargetNode(this.targetNodes[exitNumber]);
             pedestrians[i] = temp;
         }
     }
 
-    public void setTargetNode(Element node) {
-        this.targetNode = node;
+    public void setTargetNode(Element[] node) {
+        this.targetNodes = node;
     }
 
     public int getIndexIfExist(ArrayList<Element> obstacles, int i, int j) {
@@ -55,7 +59,8 @@ public class Map {
     public Map() {
         points = new Element[Constants.mapWidth][Constants.mapHeight];
         obstacles = new ArrayList<>();
-        ArrayList<Element> mapData = Grids.primaryMap();
+        this.waitings = 0;
+        ArrayList<Element> mapData = Grids.lejek();
         for (int i = 0; i < Constants.mapWidth; i++) {
             for (int j = 0; j < Constants.mapHeight; j++) {
                 int index = getIndexIfExist(mapData, i, j);

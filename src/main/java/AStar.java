@@ -48,12 +48,12 @@ public class AStar {
 
                 Element currentNeighbour = neighbours.get(i);
 
-                double newCostToNeighbour = currentElement.getGcost() + Distance.calculateDistance(currentElement.position, currentNeighbour.position, true);
+                double newCostToNeighbour = currentElement.getGcost() + Distance.calculateDistance(currentElement.position, currentNeighbour.position, false);
 
                 boolean isInOpenSet = open.Contains(currentNeighbour);
                 if ((newCostToNeighbour < currentNeighbour.getGcost()) || !isInOpenSet) {
 
-                    currentNeighbour.setHcost(Distance.calculateDistance(currentNeighbour.position, endNode.position, false));
+                    currentNeighbour.setHcost(Distance.calculateDistance(currentNeighbour.position, endNode.position, true));
                     currentNeighbour.setGcost(newCostToNeighbour);
                     currentNeighbour.setParentNode(currentElement);
 

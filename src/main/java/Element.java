@@ -17,6 +17,7 @@ public class Element {
     private Element parentNode;
     private double gcost;
     private double hcost;
+    public float density;
     public int heapIndex;
     public double getFcost() { return gcost + hcost; }
 
@@ -71,5 +72,6 @@ public class Element {
         }
         return -currentStatus;
     }
+
 };
 

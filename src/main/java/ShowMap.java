@@ -3,10 +3,12 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 
-import static java.lang.Math.pow;
 import static java.lang.StrictMath.cos;
 import static java.lang.StrictMath.sin;
 import static java.sql.Types.NULL;
@@ -22,9 +24,33 @@ import static org.lwjgl.system.MemoryStack.stackPush;
 public class ShowMap {
 
     private long window;
-    private long timeStamp = 120; //milisec
+    private long timeStamp = 170; //milisec
     private long simulationStartTime = 0;
     private boolean simulationFinished = false;
+
+    public void calculateCurrentDensity(Map map) {
+        Pedestrian[] pedestrians = map.pedestrians;
+        for (int i = 0; i < pedestrians.length; i++) {
+            int x = pedestrians[i].position.x;
+            if (pedestrians[i].position.x % 4 != 0) {
+                x += pedestrians[i].position.x % 4;
+            }
+
+            int y = pedestrians[i].position.y;
+            if (pedestrians[i].position.y % 4 != 0) {
+                y += pedestrians[i].position.y % 4;
+            }
+            if (y < Constants.mapHeight && x < Constants.mapWidth) {
+                try {
+                    float den = map.points[x][y].density + 0.25f;
+                    map.points[x][y].density = den;
+                } catch (ArrayIndexOutOfBoundsException e) {
+
+                }
+            }
+        }
+    }
+
 
     public vector2d celculateAcc(vector2d force, float mass) {
         vector2d acc = force.divideByNumber(mass);
@@ -41,31 +67,44 @@ public class ShowMap {
     public void calculatePathElementsWent(ArrayList<Position> path, Pedestrian currentAgent, vector2d distance) {
         double dist = vector2d.calculateVectorMagnitude(distance) + currentAgent.distanceLeft;
         dist *= Constants.mapScale;
-        for (int t = currentAgent.indexVisited; t < path.size(); ++t) {
-            if (Double.isNaN(dist)) {
-                currentAgent.indexVisited = path.size() - 1;
-                currentAgent.distanceLeft = 0;
-                break;
+        if (currentAgent.indexVisited == path.size()) {
+            currentAgent.finished = true;
+        } else {
+            for (int t = currentAgent.indexVisited; t < path.size(); t++) {
+                if (Double.isNaN(dist)) {
+                    currentAgent.indexVisited = path.size() - 1;
+                    currentAgent.finished = true;
+                    currentAgent.distanceLeft = 0;
+                    break;
+                }
+                if (dist < 1) {
+                    if (t == (path.size() - 3)) {
+                        currentAgent.finished = true;
+                        currentAgent.distanceLeft = 0;
+                        currentAgent.indexVisited = path.size() - 1;
+                    }
+                    currentAgent.indexVisited = t++;
+                    currentAgent.distanceLeft = dist / Constants.mapScale;
+                    break;
+                }
+                dist--;
             }
-            if (dist < 1) {
-                currentAgent.indexVisited = t++;
-                currentAgent.distanceLeft = dist / Constants.mapScale;
-                break;
-            }
-            dist--;
         }
     }
 
     public vector2d calculateDistance (vector2d force, Pedestrian currentAgent) {
         vector2d newAcc = celculateAcc(force, currentAgent.getMass());
         float t = timeStamp / 1000f;
-        vector2d startDistance = currentAgent.getVelocity().multipleByNumber(t);
-        vector2d accDistance = newAcc.multipleByNumber(pow(t, 2)).divideByNumber(2);
-        vector2d finalDistance = startDistance.dodaj(accDistance);
 
         vector2d currentVelocityVector = currentAgent.getDesiredVelocity();
         vector2d velocityWithAcc = newAcc.multipleByNumber(t);
         vector2d newVelocity = new vector2d(velocityWithAcc.getX() + currentVelocityVector.getX(), velocityWithAcc.getY() + currentVelocityVector.getY());
+        if (vector2d.calculateVectorMagnitude(newVelocity) > 5) {
+            vector2d unit = vector2d.calculateUnitVector(newVelocity);
+            newVelocity = new vector2d((unit.getX() * Constants.maxPedestrianVelocity) * t, (unit.getY() * Constants.maxPedestrianVelocity) * t);
+        }
+        vector2d startDistance = newVelocity.multipleByNumber(t);
+        vector2d finalDistance = startDistance;
         currentAgent.setVelocity(newVelocity);
         return finalDistance;
 
@@ -175,7 +214,6 @@ public class ShowMap {
     }
 
     private void loop(Map map) throws InterruptedException {
-        ArrayList<Position> pos = new ArrayList<>();
         // This line is critical for LWJGL's interoperation with GLFW's
         // OpenGL context, or any context that is managed externally.
         // LWJGL detects the context that is current in the current thread,
@@ -194,18 +232,24 @@ public class ShowMap {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
             glClear(GL_COLOR_BUFFER_BIT);
+            glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
             glLoadIdentity();
 
             glBegin(GL_POINTS);
             float x;
             float y;
 
+            ArrayList<Pedestrian> tempPedestrians = new ArrayList<>();
             for (int g = 0; g < map.pedestrians.length; g++) {
-                if (map.pedestrians[g].finished) {
-                    for(int i = g; i < map.pedestrians.length -1; i++) {
-                        map.pedestrians[i] = map.pedestrians[i + 1];
-                    }
+                if (!map.pedestrians[g].finished) {
+                    tempPedestrians.add(map.pedestrians[g]);
                 }
+            }
+            Pedestrian[] stockArr = new Pedestrian[tempPedestrians.size()];
+            stockArr = tempPedestrians.toArray(stockArr);
+            map.pedestrians = stockArr;
+
+            for (int g = 0; g < map.pedestrians.length; g++) {
                 Pedestrian currentAgent = map.pedestrians[g];
 
                 glColor3f(1.0f, 0.0f, 0.0f);
@@ -233,19 +277,26 @@ public class ShowMap {
                             //AStar a = new AStar();
                             //ArrayList<Position> path2 = a.calculatePath(new Element(newPosition, elementType.PEDESTRIAN), map.targetNode, map);
                             //currentAgent.setPath(path2);
-                        }
-                        pos.add(newPosition);
-                        //System.out.println("index: " + indexVisited + "path: " + path.size());
-                        if (indexVisited >= path.size() - 1) {
-                            currentAgent.finished = true;
+                            //currentAgent.realPath.add(newPosition);
+                            map.walkedPaths.add(newPosition);
                         }
                         break;
                     }
                 }
 
                 //draw paths
-                for (int i = 0; i < path.size(); i++) {
+                /*for (int i = 0; i < path.size(); i++) {
                     Position pathElement = path.get(i);
+                    x = normalize(pathElement.x, false);
+                    y = normalize(pathElement.y, true);
+                    glVertex2f(x, y);
+                }*/
+                //end drawing paths
+
+                //draw real paths
+                for (int i = 0; i < map.walkedPaths.size(); i++) {
+                    glColor3f(1.0f, 0f, 0f);
+                    Position pathElement = map.walkedPaths.get(i);
                     x = normalize(pathElement.x, false);
                     y = normalize(pathElement.y, true);
                     glVertex2f(x, y);
@@ -278,7 +329,7 @@ public class ShowMap {
             for (int i = 0; i < Constants.mapWidth; i++) {
                 for (int j = 0; j < Constants.mapHeight; j++) {
                     if (map.points[i][j].elementTypeVariable == elementType.OBSTACLE) {
-                        glColor3f(0f, 0f, 1.0f);
+                        glColor3f(0f, 0f, 0f);
                         x = normalize(map.points[i][j].position.x, false);
                         y = normalize(map.points[i][j].position.y, true);
                         glVertex2f(x, y);
@@ -289,22 +340,43 @@ public class ShowMap {
 
             // draw target node
             glColor3f(1.0f, 0.0f, 0.0f);
-            for(int r = 0; r <=8; r++) {
-                DrawCircle(map.targetNode.position.x, map.targetNode.position.y, 8, 100);
+            for(int z = 0; z < map.targetNodes.length; z++) {
+                for(int r = 0; r <=8; r++) {
+                    DrawCircle(map.targetNodes[z].position.x, map.targetNodes[z].position.y, r, 100);
+                }
             }
             glEnd();
+            //end drawing target node
 
+            calculateCurrentDensity(map);
             if (!simulationFinished) {
-                boolean broken = true;
-                for (int d = 0; d < map.pedestrians.length; d++) {
-                    if (!map.pedestrians[d].finished) {
-                        broken = false;
-                        break;
+                if (map.pedestrians.length < 1) {
+                    PrintWriter writer = null;
+                    try {
+                        writer = new PrintWriter("out.txt", "UTF-8");
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
                     }
-                }
-                if (broken) {
-                    System.out.print("Simulation finished in time");
-                    System.out.print(this.simulationStartTime);
+                    writer.print("k");
+                    for (int i = 0; i < Constants.mapWidth; i +=4) {
+                        writer.print(i + "k");
+                    }
+                    writer.println("k");
+                    for (int j = 0; j < Constants.mapHeight; j+=4) {
+                        writer.print(j + "k");
+                        for (int i = 0; i < Constants.mapWidth; i +=4) {
+                                writer.print("k" + map.points[i][j].density);
+                        }
+                        writer.println("k");
+                    }
+
+
+                    writer.close();
+                    System.out.println("Simulation finished in time");
+                    System.out.println(this.simulationStartTime);
+                    System.out.println("Number of waitings: " + map.waitings);
                     this.simulationFinished = true;
                     throw new InterruptedException("SKONCZONO");
                 }
