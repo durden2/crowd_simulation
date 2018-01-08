@@ -14,8 +14,8 @@ public class Main {
                 targetNodes[0] = targetNode;
                 targetNodes[1] = targetNode2;
                 ko.setTargetNode(targetNodes);
-                ko.generatePedestrians(2);
-                //ko.caltulatePaths();
+                ko.generatePedestrians(30);
+                ko.caltulatePaths();
                 try {
                     new ShowMap().run(ko);
                 } catch (InterruptedException e) {

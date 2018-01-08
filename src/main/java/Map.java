@@ -29,7 +29,7 @@ public class Map {
             int randomX = 50;
             int randomY = 50 + (i * 20);
             if (randomPedestrians) {
-                randomX = ThreadLocalRandom.current().nextInt(5, 190 - 1);
+                randomX = ThreadLocalRandom.current().nextInt(5, 150 - 1);
                 randomY = ThreadLocalRandom.current().nextInt(5, Constants.mapHeight - 1);
             }
             points[randomX][randomY].elementTypeVariable = elementType.PEDESTRIAN;

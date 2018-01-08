@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import static java.lang.StrictMath.cos;
 import static java.lang.StrictMath.sin;
@@ -24,9 +26,10 @@ import static org.lwjgl.system.MemoryStack.stackPush;
 public class ShowMap {
 
     private long window;
-    private long timeStamp = 170; //milisec
+    private long timeStamp = 100; //milisec
     private long simulationStartTime = 0;
     private boolean simulationFinished = false;
+    HashMap<Integer, Double> ko = new HashMap<>();
 
     public void calculateCurrentDensity(Map map) {
         Pedestrian[] pedestrians = map.pedestrians;
@@ -78,7 +81,7 @@ public class ShowMap {
                     break;
                 }
                 if (dist < 1) {
-                    if (t == (path.size() - 3)) {
+                    if (t == (path.size() - 1)) {
                         currentAgent.finished = true;
                         currentAgent.distanceLeft = 0;
                         currentAgent.indexVisited = path.size() - 1;
@@ -250,6 +253,9 @@ public class ShowMap {
             map.pedestrians = stockArr;
 
             for (int g = 0; g < map.pedestrians.length; g++) {
+                if (g == 10) {
+                    ko.put((int) this.simulationStartTime, vector2d.calculateVectorMagnitude(map.pedestrians[g].getVelocity()));
+                }
                 Pedestrian currentAgent = map.pedestrians[g];
 
                 glColor3f(1.0f, 0.0f, 0.0f);
@@ -348,7 +354,7 @@ public class ShowMap {
             glEnd();
             //end drawing target node
 
-            calculateCurrentDensity(map);
+            //calculateCurrentDensity(map);
             if (!simulationFinished) {
                 if (map.pedestrians.length < 1) {
                     PrintWriter writer = null;
@@ -359,17 +365,24 @@ public class ShowMap {
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
-                    writer.print("k");
-                    for (int i = 0; i < Constants.mapWidth; i +=4) {
-                        writer.print(i + "k");
+                    /*for (int i = 0; i < Constants.mapWidth; i +=4) {
+                        writer.print(i + " ");
                     }
-                    writer.println("k");
+                    writer.println(" ");
                     for (int j = 0; j < Constants.mapHeight; j+=4) {
-                        writer.print(j + "k");
+                        writer.print(j + " ");
                         for (int i = 0; i < Constants.mapWidth; i +=4) {
-                                writer.print("k" + map.points[i][j].density);
+                                writer.print(" " + map.points[i][j].density);
                         }
-                        writer.println("k");
+                        writer.println(" ");
+                    }*/
+
+                    Iterator it = ko.entrySet().iterator();
+                    while (it.hasNext()) {
+                        HashMap.Entry pair = (HashMap.Entry)it.next();
+                        writer.println(pair.getKey().toString() + " " + pair.getValue());
+                        //System.out.println(pair.getKey() + " = " + pair.getValue());
+                        it.remove(); // avoids a ConcurrentModificationException
                     }
 
 

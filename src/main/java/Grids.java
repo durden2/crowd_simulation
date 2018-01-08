@@ -115,13 +115,31 @@ public class Grids {
     public static ArrayList<Element> lejek() {
         ArrayList<Element> obstacles = new ArrayList<>();
         for (int i = 0; i < Constants.mapWidth; i++) {
-            for (int j = 0; j < Constants.mapHeight; j++) {
-                if ((i > getPercent(25, true) && i < getPercent(70, true))) {
-                    if (j > getPercent(0, false) && j < getPercent(45, false))
-                    obstacles.add(new Element(new Position(i, j), elementType.OBSTACLE));
-                    j = Constants.mapHeight;
+            if ((i > 150 && i < getPercent(73, true))) {
+                for (int j = 0; j < Constants.mapHeight; j++) {
+                        if (j + 150 == i) {
+                            obstacles.add(new Element(new Position(i, j), elementType.OBSTACLE));
+                            obstacles.add(new Element(new Position(i, j-1), elementType.OBSTACLE));
+                            break;
+                        }
                 }
             }
+            if ((i > 0 && i < getPercent(73, true))) {
+                for (int j = Constants.mapHeight; j > 0; j--) {
+                    if (j - 150 == Constants.mapHeight - i) {
+                        obstacles.add(new Element(new Position(i, j), elementType.OBSTACLE));
+                        obstacles.add(new Element(new Position(i+1, j), elementType.OBSTACLE));
+                        break;
+                    }
+                }
+            }
+                for (int j = Constants.mapHeight; j > 0; j--) {
+                    if (j == getPercent(48, true) || j == getPercent(52, true)) {
+                        if (i > getPercent(72, true) && i < getPercent(90, true)) {
+                            obstacles.add(new Element(new Position(i, j), elementType.OBSTACLE));
+                        }
+                    }
+                }
         }
         return obstacles;
     }
